@@ -1,1319 +1,666 @@
-# Building Projects Roadmap — Plan 2
+# Path Software Engineer Roadmap — Plan 2
 
-## 🧠 Deep Learning Visual Tools
+## 🧠 Deep Learning Software Lab Platform
 
-Esta organización reúne los proyectos del **Plan 2 — Deep Learning Visual Tools** dentro de **Building Projects**.
+Esta organización reúne el proyecto del **Plan 2 — Deep Learning Software Lab Platform**.
 
-Este plan acompaña directamente al:
+Este plan pertenece a la ruta mayor:
 
-```txt id="bp2-ai-relation"
-AI Engineer Plan 2 — Deep Learning Core
+```txt
+Path Software Engineer
 ```
 
-La idea central es construir herramientas pequeñas, visuales y terminables que expliquen conceptos de Deep Learning de forma clara.
+El objetivo de este segundo plan es convertir los fundamentos de Deep Learning en una aplicación de software visual, robusta y documentada.
 
-Mientras AI Engineer profundiza en PyTorch, tensores, redes neuronales, CNNs, autoencoders, training loops y fundamentos de Transformers, Building Projects convierte esos conceptos en evidencia visible:
+Este plan no busca entrenar redes neuronales profundas como objetivo principal.
 
-```txt id="bp2-core"
-concepto profundo
-→ visualización
-→ demo pequeña
+Ese trabajo profundo pertenece a:
+
+```txt
+Path AI Engineer — Plan 2 — Deep Learning Core
+```
+
+Path Software Engineer toma esos conceptos y los convierte en una plataforma visual capaz de explicar cómo funcionan:
+
+```txt
+redes neuronales básicas
+→ CNNs
+→ autoencoders
+→ representaciones latentes
+→ visualizaciones
 → tarjetas explicativas
-→ notas técnicas
-→ README claro
-→ capturas
+→ demos
+→ dashboard
+→ documentación profesional
 ```
 
-Building Projects no reemplaza los labs profundos de AI Engineer.
-
-Los traduce en herramientas que puedan mostrarse, explicarse y publicarse.
+La idea central es construir software aplicado que ayude a entender Deep Learning de forma visual, progresiva y presentable.
 
 ---
 
-# 🎯 Objetivo general
+## 🎯 Objetivo general
 
-Construir herramientas visuales de Deep Learning capaces de:
+Construir una plataforma visual de software para explicar fundamentos de Deep Learning.
 
-* Explicar cómo funciona una red neuronal.
-* Mostrar visualmente un forward pass.
-* Explicar pesos, bias, activaciones y loss.
-* Visualizar filtros y feature maps de CNNs.
-* Mostrar reconstrucción y representación latente en autoencoders.
-* Convertir conceptos difíciles en tarjetas claras.
-* Crear demos pequeñas para GitHub.
-* Fortalecer storytelling técnico.
-* Acompañar la ruta principal sin inflar el alcance.
+Al terminar este plan, la plataforma debe permitir:
+
+* Explicar una red neuronal básica paso a paso.
+* Mostrar inputs, pesos, bias, suma ponderada y activaciones.
+* Explicar predicción, loss y training loop conceptual.
+* Visualizar imágenes, filtros, convoluciones, pooling y feature maps.
+* Mostrar cómo una CNN transforma imágenes en señales visuales.
+* Explicar autoencoders, encoder, decoder, reconstrucción y error.
+* Mostrar representaciones latentes de forma simple.
+* Crear demos visuales entendibles para usuarios no expertos.
+* Documentar sprints, historias, decisiones y evidencias.
+* Construir una aplicación presentable, no solo scripts sueltos.
 
 ---
 
-# 🔗 Regla de match del Plan 2
+## 🧭 Filosofía de trabajo
 
-Building Projects hará match solo con los proyectos impares de AI Engineer.
+Este plan trabaja con la lógica de **Path Software Engineer**.
 
-```txt id="bp2-match-rule"
-Proyecto 07 IA → Proyecto 04 Building
-Proyecto 08 IA → Nada
-Proyecto 09 IA → Proyecto 05 Building
-Proyecto 10 IA → Nada
-Proyecto 11 IA → Proyecto 06 Building
-Proyecto 12 IA → Nada
+Cada plan contiene una aplicación robusta.
+
+Cada aplicación está dividida en sprints.
+
+Cada sprint toma un antiguo Building Project y lo convierte en un módulo de software integrado.
+
+```txt
+Antes:
+Building Project 4
+Building Project 5
+Building Project 6
+
+Ahora:
+Software Engineer Project 2
+├── Sprint 1 — Neural Network Visual Explainer
+├── Sprint 2 — CNN Feature Map Viewer
+└── Sprint 3 — Autoencoder Latent Space Demo
 ```
 
-Esto significa que este plan tendrá **3 proyectos**, no 6.
+La regla central es:
 
-Cada proyecto Building toma como referencia la duración del proyecto IA correspondiente.
+```txt
+Path AI Engineer = profundidad técnica.
+Path Software Engineer = software aplicado que convierte esa profundidad en producto.
+```
+
+Este plan no construye software vacío.
+
+Construye software para explicar, visualizar y presentar conceptos de Deep Learning.
 
 ---
 
-# 🗺️ Cronograma Plan 2
+## 🔗 Relación con Path AI Engineer
 
-| Semana Building |                    Proyecto Building | Match IA |  Duración | Objetivo                                             |
-| --------------- | -----------------------------------: | -------: | --------: | ---------------------------------------------------- |
-| 14-16           | `04-neural-network-visual-explainer` |    IA 07 | 3 semanas | Explicar visualmente redes neuronales básicas        |
-| 17-20           |     `05-cnn-feature-map-viewer-lite` |    IA 09 | 4 semanas | Visualizar filtros, convoluciones y feature maps     |
-| 21-24           |   `06-autoencoder-latent-space-demo` |    IA 11 | 4 semanas | Mostrar reconstrucción, compresión y espacio latente |
+Este plan acompaña proyectos impares del **Plan 2 de Path AI Engineer — Deep Learning Core**.
 
-Duración total del Plan 2:
+```txt
+Path AI Engineer Proyecto 07
+→ neural-network-foundations-lab
+→ Software Engineer Plan 2 / Sprint 1
 
-```txt id="bp2-duration"
+Path AI Engineer Proyecto 09
+→ cnn-foundations-image-classifier
+→ Software Engineer Plan 2 / Sprint 2
+
+Path AI Engineer Proyecto 11
+→ autoencoder-representation-lab
+→ Software Engineer Plan 2 / Sprint 3
+```
+
+Mientras Path AI Engineer profundiza en arquitectura, entrenamiento, tensores, backpropagation y evaluación, Path Software Engineer construye una plataforma visual que permite explicar esos conceptos con claridad.
+
+---
+
+## 🧩 Conceptos base
+
+### Proyecto principal
+
+Un proyecto principal en Path Software Engineer es una aplicación robusta de software.
+
+Debe poder incluir, según corresponda:
+
+* Frontend.
+* Backend.
+* AI services.
+* Datos o ejemplos.
+* Visualizaciones.
+* Reportes.
+* Demos.
+* Tests mínimos.
+* Documentación funcional.
+* Documentación técnica.
+* Historias de usuario.
+* Historias técnicas.
+* Sprints.
+* Evidencia visible.
+
+En este plan, el proyecto principal es:
+
+```txt
+02-deep-learning-visual-lab-platform
+```
+
+---
+
+### Sprint
+
+Un sprint es una etapa funcional dentro del proyecto principal.
+
+Cada sprint tiene:
+
+* Sprint Goal.
+* User Stories.
+* Technical Stories.
+* Acceptance Criteria.
+* Definition of Done.
+* Sprint Review.
+* Sprint Retrospective.
+* Evidencia visible.
+
+En este plan, los sprints son:
+
+```txt
+Sprint 1 — Neural Network Visual Explainer
+Sprint 2 — CNN Feature Map Viewer
+Sprint 3 — Autoencoder Latent Space Demo
+```
+
+---
+
+### Módulo
+
+Un módulo es una parte funcional dentro de un sprint.
+
+Ejemplo:
+
+```txt
+Módulo: Weighted Sum Viewer
+```
+
+Significa:
+
+```txt
+Mostrar cómo los inputs se multiplican por pesos,
+se suman,
+se combina el bias,
+y se obtiene el valor antes de activación.
+```
+
+---
+
+### Lab
+
+Un lab es un experimento pequeño y cerrado.
+
+En este plan, los labs ayudan a probar y documentar conceptos visuales de Deep Learning.
+
+Regla:
+
+```txt
+Un lab no debe quedar suelto.
+Debe reforzar una decisión del sprint o mejorar la explicación visual.
+```
+
+---
+
+## 🧪 Tipos de labs
+
+### tec-labs
+
+Laboratorios técnicos para probar conceptos visuales.
+
+Ejemplos:
+
+* Forward pass visual.
+* Weight and bias cards.
+* Weighted sum viewer.
+* Activation function viewer.
+* Feature map viewer.
+* Pooling effect.
+* Input vs reconstruction.
+* Latent vector card.
+* Reconstruction error.
+
+---
+
+### docs-labs
+
+Laboratorios de explicación y storytelling técnico.
+
+Ejemplos:
+
+* Neural network storytelling.
+* Visual Deep Learning explanation.
+* CNN visual storytelling.
+* Computer Vision result explanation.
+* Autoencoder visual storytelling.
+* Representation learning explanation.
+
+---
+
+### product-labs
+
+Laboratorios para mejorar la experiencia visual del usuario.
+
+Ejemplos:
+
+* Card layout.
+* Visual explanation flow.
+* Dashboard navigation.
+* User-facing terminology.
+* Error and limitation language.
+
+---
+
+## ☁️ Criterio de despliegue
+
+En este plan, el despliegue no es el primer objetivo.
+
+Primero se construye una demo local clara.
+
+Después se puede preparar una versión desplegable.
+
+La regla será:
+
+```txt
+Primero visual local funcionando.
+Luego dashboard simple.
+Luego integración frontend/backend si aplica.
+Luego Docker o deploy simple.
+Después mejoras de plataforma.
+```
+
+Opciones posibles:
+
+```txt
+Frontend → Vercel / Firebase Hosting / Cloud Storage
+Backend → Cloud Run / Render
+AI service → Cloud Run / local service
+Reports → carpeta reports/ o Cloud Storage
+```
+
+El foco principal del Plan 2 es:
+
+```txt
+visualización clara
+→ explicación técnica
+→ experiencia de usuario
+→ documentación
+→ evidencia visual
+```
+
+---
+
+## 🗺️ Cronograma Plan 2
+
+| Semana | Sprint | Módulo | Objetivo |
+| ------ | ------ | ------ | -------- |
+| 1-3 | Sprint 1 | Neural Network Visual Explainer | Explicar red neuronal básica, forward pass, activación, predicción, loss y training loop conceptual |
+| 4-7 | Sprint 2 | CNN Feature Map Viewer | Visualizar imagen, filtros, convolución, feature maps, pooling, prediction cards y errores |
+| 8-11 | Sprint 3 | Autoencoder Latent Space Demo | Explicar encoder, decoder, latent space, reconstrucción, error, denoising y anomalías conceptuales |
+
+Duración total aproximada:
+
+```txt
 11 semanas
 ```
 
 ---
 
-# 🧭 Filosofía de trabajo
+# 📁 Proyecto del Plan 2
 
-Deep Learning puede volverse abstracto muy rápido.
+## 02 — deep-learning-visual-lab-platform
 
-Este plan existe para evitar que los conceptos se queden solo en código o fórmulas.
+### Objetivo
 
-Regla central:
+Crear una plataforma visual para explicar fundamentos de Deep Learning mediante módulos interactivos, tarjetas, diagramas, outputs y documentación.
 
-```txt id="bp2-philosophy"
-Si no puedo visualizarlo, explicarlo y mostrarlo,
-todavía no lo domino completamente.
-```
+El proyecto integra:
 
-Un Building Project de Deep Learning debe ser:
-
-```txt id="bp2-values"
-visual
-claro
-pequeño
-explicable
-documentado
-terminable
-```
-
-No debe convertirse en un framework de Deep Learning.
-
-No debe competir con el proyecto profundo de AI Engineer.
-
-Debe ayudar a explicar lo aprendido.
-
----
-
-# 🧩 Conceptos base
-
-## Visual Tool
-
-Una visual tool es una herramienta pequeña para mostrar un concepto técnico de forma entendible.
-
-Puede incluir:
-
-* gráficos;
-* diagramas;
-* tarjetas;
-* mini demo;
-* notebook visual;
-* dashboard ligero;
-* imágenes antes/después;
-* tablas;
-* explicaciones paso a paso.
-
----
-
-## Demo pequeña
-
-Una demo pequeña muestra un flujo limitado, pero claro.
-
-Ejemplo:
-
-```txt id="bp2-demo-example"
-input
-→ capa
-→ activación
-→ predicción
-→ loss
-→ explicación
-```
-
-No necesita ser un sistema grande.
-
-Necesita ser entendible.
-
----
-
-## Tarjeta explicativa
-
-Una tarjeta explicativa convierte un concepto técnico en una unidad visual.
-
-Ejemplo:
-
-```txt id="bp2-card-example"
-Concepto: Activation Function
-Qué hace: transforma la salida de una capa.
-Por qué importa: permite aprender relaciones no lineales.
-Ejemplo visual: entrada → ReLU → salida.
-Limitación: no explica por sí sola todo el entrenamiento.
+```txt
+neural network visual explainer
+→ CNN feature map viewer
+→ autoencoder latent space demo
 ```
 
 ---
 
-## Lab visual
+### Flujo general
 
-Un lab visual es un experimento pequeño para comparar o mostrar un concepto.
-
-Ejemplo:
-
-```txt id="bp2-lab-example"
-Imagen original
-→ filtro aplicado
-→ feature map
-→ explicación
-```
-
-Debe dejar evidencia visible.
-
----
-
-# 📁 Proyectos del Plan 2
-
----
-
-## 04 — neural-network-visual-explainer
-
-### Match
-
-```txt id="bp04-match"
-AI Engineer Proyecto 07 — neural-network-foundations-lab
-```
-
-### Duración
-
-```txt id="bp04-duration"
-3 semanas
+```txt
+ejemplos simples
+→ procesamiento visual
+→ cálculo conceptual
+→ representación gráfica
+→ explicación paso a paso
+→ tarjetas visuales
+→ reportes
+→ dashboard
+→ documentación
 ```
 
 ---
 
-## 🧠 Descripción
+### Arquitectura esperada
 
-Herramienta visual para explicar los fundamentos de una red neuronal básica.
+```txt
+02-deep-learning-visual-lab-platform/
+│
+├── frontend/
+│   └── visual-dashboard/
+│
+├── backend/
+│   └── api/
+│
+├── ai-services/
+│   └── deep-learning-visual-service/
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── reports/
+│   ├── figures/
+│   ├── summaries/
+│   ├── visual-cards/
+│   └── outputs/
+│
+├── docs/
+│   ├── architecture.md
+│   ├── decisions.md
+│   ├── user-stories.md
+│   ├── technical-stories.md
+│   ├── sprint-01-neural-network-explainer.md
+│   ├── sprint-02-cnn-feature-map-viewer.md
+│   └── sprint-03-autoencoder-latent-space-demo.md
+│
+├── labs/
+│   ├── tec-labs/
+│   ├── docs-labs/
+│   └── product-labs/
+│
+├── tests/
+├── scripts/
+└── deployment/
+```
 
-Este proyecto acompaña al primer proyecto de Deep Learning en AI Engineer, donde se estudian forward pass, pesos, bias, activaciones, loss, gradiente y training loop.
+---
 
-Mientras AI Engineer trabaja el fundamento técnico con más profundidad, este Building Project lo convierte en una explicación visual y publicable.
+# 🚀 Sprint 1 — Neural Network Visual Explainer
 
-La idea es mostrar:
+## Match
 
-```txt id="bp04-core"
+```txt
+Path AI Engineer Proyecto 07 — neural-network-foundations-lab
+```
+
+## Base anterior
+
+```txt
+04-neural-network-visual-explainer
+```
+
+## Objetivo
+
+Construir el primer módulo visual de la plataforma para explicar los fundamentos de una red neuronal básica.
+
+Debe mostrar cómo una entrada pasa por:
+
+```txt
 input
 → pesos
 → bias
+→ suma ponderada
 → activación
 → predicción
 → loss
-→ actualización conceptual
+→ training loop conceptual
 ```
 
-Este proyecto no busca crear una librería de redes neuronales.
-
-Busca crear una herramienta que ayude a entender qué ocurre dentro de una red simple.
-
----
-
-## 🎯 Objetivo
-
-Crear un visual explainer que muestre de forma clara cómo una red neuronal procesa una entrada y produce una salida.
-
-El objetivo es explicar:
-
-* input;
-* pesos;
-* bias;
-* neurona;
-* activación;
-* predicción;
-* loss;
-* training loop conceptual.
-
----
-
-## 👤 Usuario objetivo
-
-* Estudiante de Deep Learning.
-* AI Engineer en formación.
-* Persona que no entiende qué ocurre dentro de una red neuronal.
-* Reclutador técnico viendo evidencia de aprendizaje.
-* Yo mismo como constructor de portafolio visual.
-
----
-
-## 🧱 Arquitectura esperada
-
-```txt id="bp04-architecture"
-Input simple
-      ↓
-Neuron / Layer
-      ↓
-Weights and Bias
-      ↓
-Activation
-      ↓
-Prediction
-      ↓
-Loss Explanation
-      ↓
-Training Loop Timeline
-      ↓
-Visual Explanation
-```
-
----
-
-## 🔁 Flujo técnico
-
-```txt id="bp04-flow"
-data example
-→ define neuron
-→ calculate weighted sum
-→ apply activation
-→ generate prediction
-→ calculate loss
-→ show training step
-→ export visual explanation
-```
-
----
-
-## 🧩 Módulos
-
-### Módulo 1 — Input Example
-
-Crear entradas simples para explicar la red.
-
-Incluye:
-
-* una o varias features;
-* valores numéricos pequeños;
-* explicación del input;
-* visualización inicial.
-
-Pregunta central:
-
-```txt id="bp04-q1"
-¿Qué recibe una red neuronal antes de hacer una predicción?
-```
-
----
-
-### Módulo 2 — Weight and Bias Cards
-
-Explicar pesos y bias.
-
-Incluye:
-
-* peso;
-* bias;
-* suma ponderada;
-* influencia de cada input;
-* tarjetas visuales.
-
-Pregunta central:
-
-```txt id="bp04-q2"
-¿Cómo influyen los pesos y bias en la salida de una neurona?
-```
-
----
-
-### Módulo 3 — Activation Viewer
-
-Mostrar una activación simple.
-
-Puede incluir:
-
-* ReLU.
-* Sigmoid.
-* Tanh conceptual.
-* entrada antes de activación;
-* salida después de activación.
-
-Pregunta central:
-
-```txt id="bp04-q3"
-¿Por qué una red necesita funciones de activación?
-```
-
----
-
-### Módulo 4 — Prediction Card
-
-Mostrar la predicción.
-
-Incluye:
-
-* output de la red;
-* interpretación simple;
-* diferencia entre valor calculado y significado;
-* ejemplo visual.
-
-Pregunta central:
-
-```txt id="bp04-q4"
-¿Qué representa la salida de una red neuronal?
-```
-
----
-
-### Módulo 5 — Loss Explanation
-
-Explicar error o pérdida.
-
-Incluye:
-
-* valor real;
-* valor predicho;
-* diferencia;
-* loss simple;
-* explicación visual.
-
-Pregunta central:
-
-```txt id="bp04-q5"
-¿Cómo sabe la red que se equivocó?
-```
-
----
-
-### Módulo 6 — Training Loop Timeline
-
-Crear una línea visual del entrenamiento.
-
-Incluye:
-
-* forward pass;
-* loss;
-* backward conceptual;
-* actualización;
-* nueva predicción;
-* repetición.
-
-Pregunta central:
-
-```txt id="bp04-q6"
-¿Qué se repite durante el entrenamiento?
-```
-
----
-
-## 🧪 Labs
-
-### tec-labs
-
-#### `tec-forward-pass-visual-lab`
-
-Visualizar un forward pass simple.
-
----
-
-#### `tec-weight-bias-card-lab`
-
-Crear tarjetas explicativas de pesos y bias.
-
----
-
-#### `tec-activation-function-viewer-lab`
-
-Comparar activaciones simples.
-
----
-
-#### `tec-loss-explanation-lab`
-
-Explicar loss con ejemplos numéricos pequeños.
-
----
-
-#### `tec-training-loop-timeline-lab`
-
-Crear timeline visual del ciclo de entrenamiento.
-
----
-
-### docs-labs
-
-#### `docs-neural-network-storytelling-lab`
-
-Practicar explicación clara de redes neuronales.
-
----
-
-## 📊 Métricas / Evidencia
-
-* Número de tarjetas visuales.
-* Diagrama de forward pass.
-* Comparación antes/después de activación.
-* Ejemplo de loss.
-* Timeline de training loop.
-* Capturas.
-* README visual.
-* Mini demo local.
-
----
-
-## 🚀 Estado actual
-
-Pendiente / por iniciar.
-
----
-
-## 🧭 Ciclo de trabajo
-
-```txt id="bp04-cycle"
-Semana 1 → Input, neurona, pesos, bias y forward pass
-Semana 2 → Activación, predicción, loss y tarjetas visuales
-Semana 3 → Training loop timeline, labs, README, capturas y cierre
-```
-
----
-
-## 📌 Próximos pasos
-
-* Definir ejemplo simple.
-* Crear visual de input.
-* Crear tarjetas de pesos y bias.
-* Mostrar forward pass.
-* Agregar activación.
-* Explicar predicción.
-* Explicar loss.
-* Crear timeline de entrenamiento.
-* Documentar labs.
-* Preparar capturas.
-* Publicar repo.
-
----
-
-## ✅ Entregable final
-
-Al terminar este proyecto debe existir:
+## Aprendizajes principales
+
+* Input vector.
+* Pesos.
+* Bias.
+* Neurona.
+* Weighted sum.
+* Función de activación.
+* Predicción.
+* Loss conceptual.
+* Forward pass.
+* Training loop conceptual.
+* Explicación visual.
+* Storytelling técnico.
+
+## Módulos
+
+* Input Example.
+* Weight and Bias Cards.
+* Weighted Sum Viewer.
+* Activation Viewer.
+* Prediction Card.
+* Loss Explanation.
+* Training Loop Timeline.
+
+## Labs
+
+* `tec-forward-pass-visual-lab`
+* `tec-weight-bias-card-lab`
+* `tec-weighted-sum-viewer-lab`
+* `tec-activation-function-viewer-lab`
+* `tec-loss-explanation-lab`
+* `tec-training-loop-timeline-lab`
+* `docs-neural-network-storytelling-lab`
+* `docs-visual-deep-learning-explanation-lab`
+
+## Entregable del sprint
 
 * Visual explainer de red neuronal.
-* Tarjetas de input, pesos, bias y activación.
+* Tarjetas de input, pesos y bias.
 * Diagrama de forward pass.
+* Visual de suma ponderada.
+* Visual de activación.
+* Tarjeta de predicción.
 * Explicación de loss.
 * Timeline de training loop.
-* Labs documentados.
-* README profesional.
-* Capturas o outputs visibles.
-* Conexión clara con `neural-network-foundations-lab`.
+* README del sprint.
+* Capturas u outputs visibles.
 
 ---
 
-## 🧭 Regla final
+# 🖼️ Sprint 2 — CNN Feature Map Viewer
 
-```txt id="bp04-rule"
-Una red neuronal no debe quedarse como caja negra.
-Debo poder mostrar cómo una entrada se transforma paso a paso.
+## Match
 
-Visualizar es una forma de dominar.
+```txt
+Path AI Engineer Proyecto 09 — cnn-foundations-image-classifier
 ```
 
----
+## Base anterior
 
-# 05 — cnn-feature-map-viewer-lite
-
-### Match
-
-```txt id="bp05-match"
-AI Engineer Proyecto 09 — cnn-foundations-image-classifier
+```txt
+05-cnn-feature-map-viewer-lite
 ```
 
-### Duración
+## Objetivo
 
-```txt id="bp05-duration"
-4 semanas
-```
+Agregar un módulo visual para explicar cómo una CNN transforma imágenes usando filtros, convoluciones, feature maps y pooling.
 
----
+Debe mostrar el flujo:
 
-## 🧠 Descripción
-
-Visualizador ligero de CNNs enfocado en imágenes, filtros, convoluciones, pooling y feature maps.
-
-Este proyecto acompaña al proyecto de AI Engineer donde se estudian CNNs para clasificación de imágenes.
-
-Mientras AI Engineer trabaja el entrenamiento, evaluación y arquitectura CNN con más profundidad, este Building Project se enfoca en hacer visible lo que una CNN está procesando.
-
-La idea es mostrar:
-
-```txt id="bp05-core"
+```txt
 imagen
+→ preprocesamiento
 → filtro
 → convolución
 → feature map
 → pooling
 → predicción
-→ explicación visual
+→ ejemplos de error
+→ visual report
 ```
 
-Este proyecto no busca crear un clasificador avanzado.
-
-Busca construir una herramienta visual para entender cómo una CNN transforma imágenes.
-
----
-
-## 🎯 Objetivo
-
-Crear un visualizador que muestre cómo una imagen pasa por filtros y genera feature maps.
-
-El objetivo es explicar:
-
-* entrada visual;
-* filtro;
-* convolución;
-* feature map;
-* pooling;
-* predicción;
-* errores simples;
-* límites de interpretación.
-
----
-
-## 👤 Usuario objetivo
-
-* Estudiante de Computer Vision.
-* AI Engineer en formación.
-* Persona que quiere entender CNNs visualmente.
-* Reclutador técnico viendo evidencia aplicada.
-* Yo mismo como constructor de portafolio visual.
-
----
-
-## 🧱 Arquitectura esperada
-
-```txt id="bp05-architecture"
-Image Input
-      ↓
-Filter Concept
-      ↓
-Convolution
-      ↓
-Feature Map
-      ↓
-Pooling
-      ↓
-Prediction Card
-      ↓
-Error Examples
-      ↓
-Visual Report
-```
-
----
-
-## 🔁 Flujo técnico
-
-```txt id="bp05-flow"
-image
-→ preprocess
-→ apply filter / explain convolution
-→ generate feature map
-→ show pooling effect
-→ display prediction
-→ compare examples
-→ export visual report
-```
-
----
-
-## 🧩 Módulos
-
-### Módulo 1 — Image Input
-
-Cargar o seleccionar imágenes pequeñas.
-
-Incluye:
-
-* imagen original;
-* tamaño;
-* formato;
-* preprocesamiento simple;
-* vista previa.
-
-Pregunta central:
-
-```txt id="bp05-q1"
-¿Qué recibe una CNN como entrada?
-```
-
----
-
-### Módulo 2 — Filter Concept Cards
-
-Explicar filtros visualmente.
-
-Incluye:
-
-* filtro de borde;
-* filtro de textura conceptual;
-* matriz pequeña;
-* efecto esperado;
-* tarjeta explicativa.
-
-Pregunta central:
-
-```txt id="bp05-q2"
-¿Qué intenta detectar un filtro?
-```
-
----
-
-### Módulo 3 — Feature Map Viewer
-
-Mostrar mapas de características.
-
-Incluye:
-
-* imagen original;
-* filtro aplicado;
-* feature map resultante;
-* comparación visual;
-* interpretación.
-
-Pregunta central:
-
-```txt id="bp05-q3"
-¿Qué muestra un feature map?
-```
-
----
-
-### Módulo 4 — Pooling Notes
-
-Explicar pooling.
-
-Incluye:
-
-* reducción de tamaño;
-* max pooling conceptual;
-* información conservada;
-* información perdida;
-* visual comparativo.
-
-Pregunta central:
-
-```txt id="bp05-q4"
-¿Por qué una CNN reduce dimensiones?
-```
-
----
-
-### Módulo 5 — Prediction Card
-
-Mostrar una predicción simple.
-
-Incluye:
-
-* clase predicha;
-* confianza si aplica;
-* imagen;
-* explicación corta;
-* limitación.
-
-Pregunta central:
-
-```txt id="bp05-q5"
-¿Cómo conecto la salida visual con una predicción entendible?
-```
-
----
-
-### Módulo 6 — Error Examples
-
-Mostrar ejemplos donde el modelo puede confundirse.
-
-Incluye:
-
-* imagen difícil;
-* predicción incorrecta;
-* posible causa;
-* limitación visual;
-* advertencia.
-
-Pregunta central:
-
-```txt id="bp05-q6"
-¿Qué tipo de errores puede cometer una CNN?
-```
-
----
-
-## 🧪 Labs
-
-### tec-labs
-
-#### `tec-image-input-preprocessing-lab`
-
-Mostrar cómo cambia una imagen al prepararla para una CNN.
-
----
-
-#### `tec-filter-visualization-lab`
-
-Visualizar filtros simples.
-
----
-
-#### `tec-feature-map-viewer-lab`
-
-Generar y comparar feature maps.
-
----
-
-#### `tec-pooling-effect-lab`
-
-Mostrar el efecto de pooling.
-
----
-
-#### `tec-cnn-error-example-lab`
-
-Documentar ejemplos de error.
-
----
-
-### docs-labs
-
-#### `docs-cnn-visual-storytelling-lab`
-
-Practicar explicación visual de CNNs.
-
----
-
-## 📊 Métricas / Evidencia
-
-* Imágenes originales.
-* Filtros visualizados.
+## Aprendizajes principales
+
+* Image input.
+* Preprocessing.
+* Canales de color.
+* Filtros.
+* Convolución conceptual.
 * Feature maps.
-* Ejemplos de pooling.
+* Pooling.
 * Prediction cards.
-* Error examples.
-* Capturas.
-* README visual.
-* Mini demo local.
+* Ejemplos de error.
+* Limitaciones de interpretación.
+* Visualización técnica.
 
----
+## Módulos
 
-## 🚀 Estado actual
+* Image Input.
+* Image Preprocessing.
+* Filter Concept Cards.
+* Feature Map Viewer.
+* Pooling Notes.
+* Prediction Card.
+* Error Examples.
 
-Pendiente / por iniciar.
+## Labs
 
----
+* `tec-image-input-preprocessing-lab`
+* `tec-filter-visualization-lab`
+* `tec-feature-map-viewer-lab`
+* `tec-pooling-effect-lab`
+* `tec-prediction-card-lab`
+* `tec-cnn-error-example-lab`
+* `docs-cnn-visual-storytelling-lab`
+* `docs-computer-vision-result-explanation-lab`
 
-## 🧭 Ciclo de trabajo
-
-```txt id="bp05-cycle"
-Semana 1 → Imagen, preprocesamiento y filtros visuales
-Semana 2 → Convolución, feature maps y pooling
-Semana 3 → Prediction cards, ejemplos de error y visual report
-Semana 4 → Labs, README, capturas y cierre
-```
-
----
-
-## 📌 Próximos pasos
-
-* Elegir imágenes pequeñas.
-* Crear módulo de carga visual.
-* Crear tarjetas de filtros.
-* Aplicar filtros simples.
-* Mostrar feature maps.
-* Explicar pooling.
-* Crear prediction cards.
-* Documentar errores.
-* Preparar visual report.
-* Cerrar labs.
-* Agregar capturas.
-* Publicar repo.
-
----
-
-## ✅ Entregable final
-
-Al terminar este proyecto debe existir:
+## Entregable del sprint
 
 * Visualizador CNN.
 * Imágenes de ejemplo.
+* Visual de preprocesamiento.
 * Filtros visualizados.
 * Feature maps.
 * Notas de pooling.
 * Prediction cards.
 * Error examples.
-* Labs documentados.
-* README profesional.
-* Capturas o outputs visibles.
-* Conexión clara con `cnn-foundations-image-classifier`.
+* Visual report.
+* README del sprint.
+* Capturas u outputs visibles.
 
 ---
 
-## 🧭 Regla final
+# 🧬 Sprint 3 — Autoencoder Latent Space Demo
 
-```txt id="bp05-rule"
-Una CNN no solo predice una clase.
-Transforma una imagen en señales visuales.
+## Match
 
-Si veo las transformaciones,
-entiendo mejor la arquitectura.
+```txt
+Path AI Engineer Proyecto 11 — autoencoder-representation-lab
 ```
 
----
+## Base anterior
 
-# 06 — autoencoder-latent-space-demo
-
-### Match
-
-```txt id="bp06-match"
-AI Engineer Proyecto 11 — autoencoder-representation-lab
+```txt
+06-autoencoder-latent-space-demo
 ```
 
-### Duración
+## Objetivo
 
-```txt id="bp06-duration"
-4 semanas
-```
+Agregar una demo visual para explicar autoencoders, reconstrucción, compresión, denoising, error y espacio latente.
 
----
+Debe mostrar el flujo:
 
-## 🧠 Descripción
-
-Demo visual para explicar autoencoders, reconstrucción, compresión, denoising y espacio latente.
-
-Este proyecto acompaña al proyecto de AI Engineer donde se estudian autoencoders y representación.
-
-Mientras AI Engineer trabaja arquitectura, entrenamiento, reconstruction loss, latent representation, denoising y anomaly detection, este Building Project convierte esos conceptos en una demo visual clara.
-
-La idea es mostrar:
-
-```txt id="bp06-core"
+```txt
 input
 → encoder
-→ latent space
+→ latent vector
 → decoder
 → reconstruction
-→ error
-→ visual explanation
+→ reconstruction error
+→ denoising example
+→ anomaly example
+→ visual demo
 ```
 
-Este proyecto no busca crear un sistema avanzado de detección de anomalías.
-
-Busca mostrar cómo un autoencoder aprende a reconstruir y representar datos.
-
----
-
-## 🎯 Objetivo
-
-Crear una demo visual de autoencoder que muestre input, reconstrucción, representación latente y error.
-
-El objetivo es explicar:
-
-* encoder;
-* bottleneck;
-* latent vector;
-* decoder;
-* reconstruction;
-* reconstruction error;
-* denoising conceptual;
-* anomalías conceptuales.
-
----
-
-## 👤 Usuario objetivo
-
-* Estudiante de Deep Learning.
-* AI Engineer en formación.
-* Persona que quiere entender autoencoders visualmente.
-* Reclutador técnico viendo evidencia aplicada.
-* Yo mismo como constructor de portafolio visual.
-
----
-
-## 🧱 Arquitectura esperada
-
-```txt id="bp06-architecture"
-Input Data
-      ↓
-Encoder
-      ↓
-Latent Vector
-      ↓
-Decoder
-      ↓
-Reconstruction
-      ↓
-Reconstruction Error
-      ↓
-Denoising Example
-      ↓
-Anomaly Example
-      ↓
-Visual Demo
-```
-
----
-
-## 🔁 Flujo técnico
-
-```txt id="bp06-flow"
-input example
-→ encode
-→ show latent representation
-→ decode
-→ compare reconstruction
-→ calculate error
-→ show denoising / anomaly notes
-→ export visual demo
-```
-
----
-
-## 🧩 Módulos
-
-### Módulo 1 — Input vs Reconstruction
-
-Mostrar entrada y reconstrucción.
-
-Incluye:
-
-* input original;
-* output reconstruido;
-* comparación visual;
-* diferencia;
-* explicación.
-
-Pregunta central:
-
-```txt id="bp06-q1"
-¿Qué tan bien el autoencoder puede reconstruir la entrada?
-```
-
----
-
-### Módulo 2 — Encoder / Decoder Cards
-
-Explicar las dos partes principales.
-
-Incluye:
-
-* encoder;
-* bottleneck;
-* decoder;
-* compresión;
-* reconstrucción;
-* tarjetas visuales.
-
-Pregunta central:
-
-```txt id="bp06-q2"
-¿Qué hace el encoder y qué hace el decoder?
-```
-
----
-
-### Módulo 3 — Latent Vector Card
-
-Mostrar la representación latente.
-
-Incluye:
-
-* vector latente;
-* dimensión reducida;
-* compresión;
-* significado conceptual;
-* limitación.
-
-Pregunta central:
-
-```txt id="bp06-q3"
-¿Qué representa el espacio latente?
-```
-
----
-
-### Módulo 4 — Reconstruction Error Notes
-
-Explicar error de reconstrucción.
-
-Incluye:
-
-* diferencia input vs output;
-* error promedio;
-* zonas de mayor error;
-* interpretación;
-* limitaciones.
-
-Pregunta central:
-
-```txt id="bp06-q4"
-¿Qué me dice el error de reconstrucción?
-```
-
----
-
-### Módulo 5 — Denoising Example
-
-Mostrar reducción de ruido conceptual.
-
-Incluye:
-
-* input con ruido;
-* reconstrucción limpia;
-* comparación visual;
-* explicación;
-* advertencia.
-
-Pregunta central:
-
-```txt id="bp06-q5"
-¿Cómo puede un autoencoder ayudar a reconstruir señales con ruido?
-```
-
----
-
-### Módulo 6 — Anomaly Example
-
-Mostrar anomalías de forma conceptual.
-
-Incluye:
-
-* ejemplo normal;
-* ejemplo extraño;
-* error más alto;
-* tarjeta de interpretación;
-* límites.
-
-Pregunta central:
-
-```txt id="bp06-q6"
-¿Por qué una anomalía puede tener mayor error de reconstrucción?
-```
-
----
-
-## 🧪 Labs
-
-### tec-labs
-
-#### `tec-input-reconstruction-lab`
-
-Comparar entrada original contra reconstrucción.
-
----
-
-#### `tec-latent-vector-card-lab`
-
-Explicar representación latente.
-
----
-
-#### `tec-reconstruction-error-lab`
-
-Calcular y visualizar error de reconstrucción.
-
----
-
-#### `tec-denoising-example-lab`
-
-Mostrar ejemplo de denoising conceptual.
-
----
-
-#### `tec-anomaly-reconstruction-lab`
-
-Mostrar error mayor en ejemplos anómalos.
-
----
-
-### docs-labs
-
-#### `docs-autoencoder-visual-storytelling-lab`
-
-Practicar explicación visual de autoencoders.
-
----
-
-## 📊 Métricas / Evidencia
-
-* Input original.
-* Output reconstruido.
-* Error de reconstrucción.
-* Latent vector card.
-* Denoising example.
-* Anomaly example.
-* Visual comparison.
-* Capturas.
-* README profesional.
-* Demo local.
-
----
-
-## 🚀 Estado actual
-
-Pendiente / por iniciar.
-
----
-
-## 🧭 Ciclo de trabajo
-
-```txt id="bp06-cycle"
-Semana 1 → Input, encoder, decoder y reconstrucción básica
-Semana 2 → Latent space, reconstruction error y tarjetas visuales
-Semana 3 → Denoising, anomaly example y visual demo
-Semana 4 → Labs, README, capturas y cierre
-```
-
----
-
-## 📌 Próximos pasos
-
-* Elegir dataset pequeño o ejemplos simples.
-* Crear comparación input vs reconstruction.
-* Crear tarjetas encoder/decoder.
-* Mostrar latent vector.
-* Calcular reconstruction error.
-* Crear ejemplo de denoising.
-* Crear ejemplo de anomalía.
-* Preparar visual demo.
-* Documentar labs.
-* Agregar capturas.
-* Publicar repo.
-
----
-
-## ✅ Entregable final
-
-Al terminar este proyecto debe existir:
+## Aprendizajes principales
+
+* Encoder.
+* Decoder.
+* Bottleneck.
+* Latent vector.
+* Latent space.
+* Reconstrucción.
+* Reconstruction error.
+* Denoising conceptual.
+* Anomalías conceptuales.
+* Representación visual.
+
+## Módulos
+
+* Input vs Reconstruction.
+* Encoder / Decoder Cards.
+* Latent Vector Card.
+* Latent Space Viewer.
+* Reconstruction Error Notes.
+* Denoising Example.
+* Anomaly Example.
+
+## Labs
+
+* `tec-input-reconstruction-lab`
+* `tec-encoder-decoder-card-lab`
+* `tec-latent-vector-card-lab`
+* `tec-latent-space-viewer-lab`
+* `tec-reconstruction-error-lab`
+* `tec-denoising-example-lab`
+* `tec-anomaly-reconstruction-lab`
+* `docs-autoencoder-visual-storytelling-lab`
+* `docs-representation-learning-explanation-lab`
+
+## Entregable del sprint
 
 * Demo visual de autoencoder.
 * Input vs reconstruction.
 * Encoder / decoder cards.
 * Latent vector card.
+* Latent space viewer.
 * Reconstruction error notes.
 * Denoising example.
 * Anomaly example.
-* Labs documentados.
-* README profesional.
-* Capturas o outputs visibles.
-* Conexión clara con `autoencoder-representation-lab`.
-
----
-
-## 🧭 Regla final
-
-```txt id="bp06-rule"
-Un autoencoder no solo comprime.
-Aprende una representación que permite reconstruir.
-
-La reconstrucción muestra lo que el modelo entendió.
-El error muestra lo que no logró representar bien.
-```
-
----
-
-# 🧱 Ciclo general de cada proyecto
-
-Cada proyecto del Plan 2 sigue este ciclo:
-
-```txt id="bp2-cycle-general"
-1. Definir concepto visual.
-2. Definir usuario.
-3. Definir qué debe entenderse.
-4. Elegir ejemplo pequeño.
-5. Crear README inicial.
-6. Crear estructura mínima.
-7. Crear primera visualización.
-8. Agregar tarjetas explicativas.
-9. Crear labs pequeños.
-10. Probar si aplica.
-11. Documentar decisiones.
-12. Agregar capturas.
-13. Preparar demo o evidencia.
-14. Escribir aprendizajes.
-15. Definir limitaciones.
-16. Definir siguiente paso.
-17. Publicar en GitHub.
-18. Conectar con el proyecto IA correspondiente.
-```
-
----
-
-# 🗂️ Estructura recomendada del repositorio
-
-```txt id="bp2-repo-structure"
-Deep-Learning-Visual-Tools/
-├── 04-neural-network-visual-explainer/
-│   ├── data/
-│   ├── src/
-│   ├── reports/
-│   ├── visuals/
-│   ├── docs/
-│   ├── labs/
-│   ├── scripts/
-│   └── README.md
-│
-├── 05-cnn-feature-map-viewer-lite/
-│   ├── data/
-│   ├── src/
-│   ├── reports/
-│   ├── visuals/
-│   ├── docs/
-│   ├── labs/
-│   └── README.md
-│
-├── 06-autoencoder-latent-space-demo/
-│   ├── data/
-│   ├── src/
-│   ├── reports/
-│   ├── visuals/
-│   ├── docs/
-│   ├── labs/
-│   └── README.md
-│
-└── README.md
-```
+* README del sprint.
+* Capturas u outputs visibles.
 
 ---
 
 # 📊 Nivel esperado al terminar Plan 2
 
-| Área                                   | Nivel esperado |
-| -------------------------------------- | -------------: |
-| Explicación visual de redes neuronales |         8.5/10 |
-| Forward pass conceptual                |           8/10 |
-| Pesos, bias y activaciones             |           8/10 |
-| Loss y training loop conceptual        |           8/10 |
-| Visualización de CNNs                  |           8/10 |
-| Feature maps                           |           8/10 |
-| Filtros y convoluciones                |         7.5/10 |
-| Pooling conceptual                     |         7.5/10 |
-| Autoencoders                           |           8/10 |
-| Latent space                           |           8/10 |
-| Reconstruction error                   |           8/10 |
-| Denoising conceptual                   |         7.5/10 |
-| Storytelling técnico visual            |         8.5/10 |
-| README profesional                     |         8.5/10 |
-| Evidencia visual de aprendizaje        |           9/10 |
+| Área | Nivel esperado |
+| ---- | -------------: |
+| Explicación visual de redes neuronales | 8.5/10 |
+| Forward pass conceptual | 8.5/10 |
+| Pesos, bias y suma ponderada | 8.5/10 |
+| Activaciones conceptuales | 8/10 |
+| Loss conceptual | 8/10 |
+| Training loop storytelling | 8/10 |
+| Visualización de CNNs | 8/10 |
+| Filtros y convoluciones conceptuales | 8/10 |
+| Feature maps | 8/10 |
+| Pooling | 7.5/10 |
+| Prediction cards | 8/10 |
+| Autoencoder explanation | 8/10 |
+| Latent space explanation | 7.5/10 |
+| Reconstruction error | 8/10 |
+| Denoising conceptual | 7.5/10 |
+| Anomaly explanation conceptual | 7.5/10 |
+| Frontend visual para IA | 8/10 |
+| AI services para visualización | 7.5/10 |
+| Documentación técnica | 9/10 |
+| Storytelling visual | 9/10 |
 
 ---
 
@@ -1321,34 +668,31 @@ Deep-Learning-Visual-Tools/
 
 Al completar este plan, podré decir:
 
-```txt id="bp2-result"
-Sé convertir conceptos de Deep Learning en herramientas visuales.
-Sé explicar una red neuronal paso a paso.
-Sé mostrar qué ocurre en un forward pass.
-Sé explicar activaciones y loss con claridad.
-Sé visualizar feature maps de una CNN.
-Sé explicar filtros, convoluciones y pooling.
-Sé mostrar input vs reconstruction en autoencoders.
-Sé explicar latent space y reconstruction error.
-Sé convertir aprendizaje profundo en evidencia visual.
+```txt
+Sé construir una plataforma visual para explicar Deep Learning.
+Sé mostrar cómo una red neuronal transforma una entrada.
+Sé explicar pesos, bias, suma ponderada, activación, predicción y loss.
+Sé visualizar cómo una CNN procesa imágenes mediante filtros y feature maps.
+Sé explicar pooling y limitaciones visuales.
+Sé mostrar cómo un autoencoder comprime, reconstruye y genera error de reconstrucción.
+Sé convertir conceptos profundos en módulos visuales entendibles.
+Sé documentar sprints, historias, decisiones y evidencias.
+Sé construir software aplicado a IA, no solo notebooks o scripts.
 ```
 
 ---
 
-# 🧭 Regla final de avance
+# 🧭 Regla final
 
-```txt id="bp2-final-rule"
-No basta con entrenar.
-Debo saber mostrar qué ocurre.
+```txt
+No construiré software vacío.
+Construiré software que explique inteligencia artificial.
 
-Deep Learning se entiende mejor cuando puedo visualizar sus transformaciones.
-```
+No dejaré Deep Learning como caja negra.
+Lo convertiré en visuales, tarjetas, demos y documentación.
 
-Frase guía:
-
-```txt id="bp2-final-phrase"
-AI Engineer me enseña la profundidad del modelo.
-Building Projects me obliga a explicarlo visualmente.
+Path AI Engineer me da profundidad técnica.
+Path Software Engineer convierte esa profundidad en producto visual.
 ```
 
 ---
@@ -1357,5 +701,5 @@ Building Projects me obliga a explicarlo visualmente.
 
 **Jean Franck Loa Rojas**
 
-Building Projects Path Builder
-Deep Learning Visual Tools • Neural Networks • CNNs • Autoencoders • Visual Storytelling • Technical Evidence
+Path Software Engineer Builder  
+Deep Learning Visual Systems • Neural Networks • CNN Visualization • Autoencoders • Visual Storytelling • AI Software Platforms • Technical Documentation
