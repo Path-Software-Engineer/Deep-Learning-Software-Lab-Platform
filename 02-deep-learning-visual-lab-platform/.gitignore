@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-tmp/
+.pytest-runs/
+.mypy_cache/
+.ruff_cache/
+frontend/node_modules/
+frontend/lab-app/node_modules/
+frontend/lab-app/.next/
+frontend/lab-app/coverage/
+frontend/lab-app/test-results/
+frontend/lab-app/playwright-report/
+# Superseded local screenshots from the incompatible pre-PyTorch correction.
+reports/visual-validation/desktop-1440.png
+reports/visual-validation/tablet-768.png
+reports/visual-validation/mobile-390.png
+.coverage
+htmlcov/
+*.log
+.env
+.env.local

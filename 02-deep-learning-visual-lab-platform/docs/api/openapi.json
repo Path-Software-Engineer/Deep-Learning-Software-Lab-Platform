@@ -1,0 +1,775 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Deep Learning Visual Lab API",
+    "description": "Typed read and forward-pass API for the educational Deep Learning Visual Lab. Training is intentionally offline.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/platform/modules": {
+      "get": {
+        "tags": [
+          "Platform"
+        ],
+        "summary": "List the modules implemented in the current platform increment",
+        "operationId": "list_modules_api_v1_platform_modules_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModulesResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/neural-network/summary": {
+      "get": {
+        "tags": [
+          "Neural Network Explainer"
+        ],
+        "summary": "Get Summary",
+        "operationId": "get_summary_api_v1_neural_network_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NeuralNetworkSummaryResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/neural-network/forward": {
+      "post": {
+        "tags": [
+          "Neural Network Explainer"
+        ],
+        "summary": "Execute Forward",
+        "operationId": "execute_forward_api_v1_neural_network_forward_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForwardRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForwardResource"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/neural-network/training-history": {
+      "get": {
+        "tags": [
+          "Neural Network Explainer"
+        ],
+        "summary": "Get Training History",
+        "operationId": "get_training_history_api_v1_neural_network_training_history_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainingHistoryResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ArchitectureResource": {
+        "properties": {
+          "input_nodes": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Input Nodes"
+          },
+          "hidden_nodes": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Hidden Nodes"
+          },
+          "output_nodes": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Output Nodes"
+          },
+          "hidden_activation": {
+            "type": "string",
+            "title": "Hidden Activation"
+          },
+          "output_activation": {
+            "type": "string",
+            "title": "Output Activation"
+          },
+          "parameter_count": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Parameter Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "input_nodes",
+          "hidden_nodes",
+          "output_nodes",
+          "hidden_activation",
+          "output_activation",
+          "parameter_count"
+        ],
+        "title": "ArchitectureResource"
+      },
+      "CheckpointResource": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "title": "File"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Sha256"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Bytes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "file",
+          "sha256",
+          "bytes"
+        ],
+        "title": "CheckpointResource"
+      },
+      "DatasetResource": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "samples": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Samples"
+          },
+          "features": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Features"
+          },
+          "targets": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Targets"
+          },
+          "points": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Points"
+          },
+          "labels": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Labels"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "description",
+          "samples",
+          "features",
+          "targets",
+          "points",
+          "labels"
+        ],
+        "title": "DatasetResource"
+      },
+      "ErrorEnvelope": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorResource"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ErrorEnvelope"
+      },
+      "ErrorItemResource": {
+        "properties": {
+          "field": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "ErrorItemResource"
+      },
+      "ErrorResource": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "details": {
+            "items": {
+              "$ref": "#/components/schemas/ErrorItemResource"
+            },
+            "type": "array",
+            "title": "Details"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorResource"
+      },
+      "ForwardRequest": {
+        "properties": {
+          "inputs": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Inputs"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "inputs"
+        ],
+        "title": "ForwardRequest"
+      },
+      "ForwardResource": {
+        "properties": {
+          "inputs": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Inputs"
+          },
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/LayerResource"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Layers"
+          },
+          "output": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Output"
+          },
+          "target": {
+            "type": "integer",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Target"
+          },
+          "loss": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Loss"
+          },
+          "prediction": {
+            "type": "integer",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Prediction"
+          },
+          "threshold": {
+            "type": "number",
+            "exclusiveMaximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Threshold"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "checkpoint_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Checkpoint Sha256"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "inputs",
+          "layers",
+          "output",
+          "target",
+          "loss",
+          "prediction",
+          "threshold",
+          "model_version",
+          "checkpoint_sha256",
+          "limitations"
+        ],
+        "title": "ForwardResource"
+      },
+      "HealthResource": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "artifact": {
+            "type": "string",
+            "title": "Artifact"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "service",
+          "version",
+          "artifact"
+        ],
+        "title": "HealthResource"
+      },
+      "LayerResource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "operation": {
+            "type": "string",
+            "title": "Operation"
+          },
+          "weights": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Weights"
+          },
+          "biases": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Biases"
+          },
+          "preactivations": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Preactivations"
+          },
+          "activations": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Activations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "operation",
+          "weights",
+          "biases",
+          "preactivations",
+          "activations"
+        ],
+        "title": "LayerResource"
+      },
+      "ModuleResource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "sprint": {
+            "type": "integer",
+            "title": "Sprint"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "path",
+          "status",
+          "sprint"
+        ],
+        "title": "ModuleResource"
+      },
+      "ModulesResource": {
+        "properties": {
+          "modules": {
+            "items": {
+              "$ref": "#/components/schemas/ModuleResource"
+            },
+            "type": "array",
+            "title": "Modules"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "modules"
+        ],
+        "title": "ModulesResource"
+      },
+      "NeuralNetworkSummaryResource": {
+        "properties": {
+          "module_id": {
+            "type": "string",
+            "title": "Module Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "dataset": {
+            "$ref": "#/components/schemas/DatasetResource"
+          },
+          "architecture": {
+            "$ref": "#/components/schemas/ArchitectureResource"
+          },
+          "checkpoint": {
+            "$ref": "#/components/schemas/CheckpointResource"
+          },
+          "engine": {
+            "type": "string",
+            "title": "Engine"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "module_id",
+          "name",
+          "status",
+          "model_version",
+          "dataset",
+          "architecture",
+          "checkpoint",
+          "engine",
+          "limitations"
+        ],
+        "title": "NeuralNetworkSummaryResource"
+      },
+      "TrainingConfigurationResource": {
+        "properties": {
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "epochs": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Epochs"
+          },
+          "learning_rate": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Learning Rate"
+          },
+          "optimizer": {
+            "type": "string",
+            "title": "Optimizer"
+          },
+          "loss_function": {
+            "type": "string",
+            "title": "Loss Function"
+          },
+          "history_interval": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "History Interval"
+          },
+          "threshold": {
+            "type": "number",
+            "exclusiveMaximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Threshold"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "seed",
+          "epochs",
+          "learning_rate",
+          "optimizer",
+          "loss_function",
+          "history_interval",
+          "threshold"
+        ],
+        "title": "TrainingConfigurationResource"
+      },
+      "TrainingHistoryResource": {
+        "properties": {
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "configuration": {
+            "$ref": "#/components/schemas/TrainingConfigurationResource"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/TrainingMetricsResource"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/TrainingPointResource"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Points"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_version",
+          "seed",
+          "configuration",
+          "metrics",
+          "points",
+          "limitations"
+        ],
+        "title": "TrainingHistoryResource"
+      },
+      "TrainingMetricsResource": {
+        "properties": {
+          "accuracy": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Accuracy"
+          },
+          "final_loss": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Final Loss"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "accuracy",
+          "final_loss"
+        ],
+        "title": "TrainingMetricsResource"
+      },
+      "TrainingPointResource": {
+        "properties": {
+          "epoch": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Epoch"
+          },
+          "loss": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Loss"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "epoch",
+          "loss"
+        ],
+        "title": "TrainingPointResource"
+      }
+    }
+  }
+}
