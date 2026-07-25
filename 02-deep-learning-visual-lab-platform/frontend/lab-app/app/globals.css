@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+  color-scheme: dark;
+  --background: #07090f;
+  --surface: #0d111a;
+  --surface-raised: #121724;
+  --line: #242b3a;
+  --line-strong: #353e52;
+  --text: #f6f5fb;
+  --muted: #9299a9;
+  --dim: #656d7e;
+  --violet: #9d82ff;
+  --violet-soft: #c0afff;
+  --cyan: #59d5f7;
+  --mint: #66ddb1;
+  --orange: #ff9a63;
+  --danger: #ff6d7b;
+  font-family: "Manrope", system-ui, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 78% -8%, rgba(107, 77, 226, 0.17), transparent 32rem),
+    var(--background);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: #090b12;
+  background: var(--violet-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
