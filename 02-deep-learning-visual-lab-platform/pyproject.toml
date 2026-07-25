@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools==75.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deep-learning-visual-lab-platform"
+version = "0.1.0"
+description = "Full-stack educational platform for inspecting neural-network representations."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.136.3",
+  "pydantic==2.13.4",
+  "torch==2.9.0",
+  "uvicorn==0.49.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx==0.28.1",
+  "mypy==1.19.0",
+  "pytest==8.4.2",
+  "pytest-cov==7.0.0",
+  "ruff==0.14.14",
+]
+
+[tool.setuptools.packages.find]
+where = ["backend/api", "ai-services/neural-network-explainer/src"]
+
+[tool.pytest.ini_options]
+testpaths = [
+  "ai-services/neural-network-explainer/tests",
+  "backend/api/tests",
+  "tests",
+]
+pythonpath = [
+  "ai-services/neural-network-explainer/src",
+  "backend/api",
+]
+addopts = "-ra --strict-config --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "backend/api;ai-services/neural-network-explainer/src"
+files = ["backend/api/app", "ai-services/neural-network-explainer/src"]
+strict = true
+warn_unused_ignores = true
+
+[tool.coverage.run]
+branch = true
+source = ["app", "neural_network_explainer"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 90

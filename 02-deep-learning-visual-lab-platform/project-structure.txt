@@ -1,0 +1,48 @@
+02-deep-learning-visual-lab-platform/
+|-- README.md
+|-- pyproject.toml
+|-- requirements.txt
+|-- requirements-dev.txt
+|-- frontend/
+|   `-- lab-app/
+|       |-- app/
+|       |-- features/neural-network/components/
+|       |-- lib/
+|       |-- types/
+|       `-- tests/
+|-- backend/
+|   `-- api/
+|       |-- app/
+|       |   |-- common/
+|       |   |-- core/
+|       |   |-- neural_network/
+|       |   `-- platform/
+|       `-- tests/
+|-- ai-services/
+|   `-- neural-network-explainer/
+|       |-- src/neural_network_explainer/
+|       `-- tests/
+|-- models/
+|   `-- neural-network/
+|       |-- manifest.json
+|       |-- training-history.json
+|       `-- xor-mlp-v1.pt
+|-- reports/
+|   |-- metrics/neural-network/
+|   `-- summaries/neural-network/
+|-- labs/
+|   `-- activation-behavior-lab/
+|-- docs/
+|   |-- api/openapi.json
+|   `-- sprints/sprint-01-neural-network-explainer/
+|       |-- week-01/
+|       |-- week-02/
+|       `-- week-03/
+|-- tests/
+|   |-- contract/
+|   `-- integration/
+|-- checks/
+`-- scripts/
+
+The Sprint 1 neural engine is self-contained and implemented with PyTorch.
+Future Sprint 2 and Sprint 3 implementation directories are intentionally absent.
