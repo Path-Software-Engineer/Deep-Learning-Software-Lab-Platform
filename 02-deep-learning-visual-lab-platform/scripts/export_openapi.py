@@ -17,6 +17,15 @@ sys.path.insert(
         / "src"
     ),
 )
+sys.path.insert(
+    0,
+    str(
+        PROJECT_ROOT
+        / "ai-services"
+        / "cnn-feature-map-viewer"
+        / "src"
+    ),
+)
 
 from app.main import app  # noqa: E402
 

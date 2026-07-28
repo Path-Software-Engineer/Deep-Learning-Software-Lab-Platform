@@ -1,4 +1,6 @@
-# Sprint 1 User Stories
+# User Stories
+
+## Sprint 1 — Neural Network Explainer
 
 ## US-P2-S1-001 — Run an XOR forward pass
 
@@ -64,3 +66,71 @@ not confuse a small visualization with production or causal evidence.
 
 **Evidence:** shared API error handlers, `api-client.ts`,
 `NeuralNetworkExplainer.tsx`, `docs/limitations.md`.
+
+## Sprint 2 — CNN Feature Map Viewer
+
+### US-P2-S2-001 — Select a valid fashion image
+
+**Story:** As a student, I want to select a registered Fashion-MNIST sample or
+temporarily upload a valid image so that I can inspect a real CNN inference.
+
+**Acceptance criteria:**
+
+- ten registered class samples are available;
+- PNG/JPEG uploads are size, dimension and media-type bounded;
+- ambiguous, missing and invalid inputs return typed errors;
+- uploaded bytes are not persisted.
+
+**Status:** Completed.
+
+**Evidence:** `image_io.py`, `sample-gallery.json`, CNN FastAPI router, API and
+component tests.
+
+### US-P2-S2-002 — Inspect selected layers and channels
+
+**Story:** As a student, I want to choose a convolutional layer and channels so
+that I can compare their spatial activation patterns.
+
+**Acceptance criteria:**
+
+- only published layer IDs are accepted;
+- one to twelve unique in-range channels are accepted;
+- maps come from the registered PyTorch forward pass;
+- the frontend performs no convolution or activation extraction.
+
+**Status:** Completed.
+
+**Evidence:** `hooks.py`, `service.py`, `/api/v1/cnn/feature-maps`,
+`CnnFeatureMapViewer.tsx`, service and frontend tests.
+
+### US-P2-S2-003 — Read prediction and tensor context
+
+**Story:** As a student, I want the predicted class, confidence and tensor
+metadata next to the maps so that I understand what was evaluated.
+
+**Acceptance criteria:**
+
+- all ten class probabilities and selected prediction are returned;
+- input, activation and map shapes are explicit;
+- each map identifies layer, operation, channel and raw statistics.
+
+**Status:** Completed.
+
+**Evidence:** CNN resources, `FeatureMapTile.tsx`, OpenAPI contract and
+cross-layer tests.
+
+### US-P2-S2-004 — Understand representation limitations
+
+**Story:** As a user, I want visible evidence boundaries so that I do not
+interpret feature maps as causal explanations.
+
+**Acceptance criteria:**
+
+- independent display normalization is disclosed;
+- the 900-image source and 150-image holdout are disclosed;
+- activation, confidence and production-readiness limitations remain visible.
+
+**Status:** Completed.
+
+**Evidence:** `config.py`, `docs/limitations.md`,
+`CnnFeatureMapViewer.tsx`, Sprint 2 repository check.

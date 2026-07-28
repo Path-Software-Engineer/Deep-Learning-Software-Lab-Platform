@@ -24,6 +24,14 @@ def list_modules() -> ModulesResource:
                 path="/",
                 status="available",
                 sprint=1,
-            )
+            ),
+            ModuleResource(
+                id="cnn-feature-map-viewer",
+                name="CNN Feature Map Viewer",
+                description="Classify Fashion-MNIST images and inspect allowlisted feature maps.",
+                path="/cnn",
+                status="available",
+                sprint=2,
+            ),
         ]
     )

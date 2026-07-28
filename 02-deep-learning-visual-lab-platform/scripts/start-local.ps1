@@ -9,7 +9,8 @@ if (-not (Test-Path -LiteralPath $python)) {
 
 $env:PYTHONPATH = @(
     (Join-Path $projectRoot "backend\api"),
-    (Join-Path $projectRoot "ai-services\neural-network-explainer\src")
+    (Join-Path $projectRoot "ai-services\neural-network-explainer\src"),
+    (Join-Path $projectRoot "ai-services\cnn-feature-map-viewer\src")
 ) -join ";"
 
 Start-Process `
@@ -25,4 +26,5 @@ Start-Process `
     -WindowStyle Hidden
 
 Write-Host "API docs: http://127.0.0.1:8000/docs"
-Write-Host "Web: http://127.0.0.1:3000"
+Write-Host "Sprint 1 web: http://127.0.0.1:3000"
+Write-Host "Sprint 2 web: http://127.0.0.1:3000/cnn"

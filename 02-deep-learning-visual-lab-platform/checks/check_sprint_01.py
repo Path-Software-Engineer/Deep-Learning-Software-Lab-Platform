@@ -30,10 +30,7 @@ def main() -> None:
     if missing:
         raise SystemExit(f"Missing Sprint 1 evidence: {', '.join(missing)}")
 
-    future_contexts = [
-        PROJECT_ROOT / "ai-services" / "cnn-feature-map-viewer",
-        PROJECT_ROOT / "ai-services" / "autoencoder-latent-space",
-    ]
+    future_contexts = [PROJECT_ROOT / "ai-services" / "autoencoder-latent-space"]
     opened = [str(path.relative_to(PROJECT_ROOT)) for path in future_contexts if path.exists()]
     if opened:
         raise SystemExit(f"Future sprint implementation opened early: {', '.join(opened)}")

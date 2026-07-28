@@ -3,7 +3,7 @@
   "info": {
     "title": "Deep Learning Visual Lab API",
     "description": "Typed read and forward-pass API for the educational Deep Learning Visual Lab. Training is intentionally offline.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "paths": {
     "/api/v1/platform/modules": {
@@ -110,6 +110,209 @@
         }
       }
     },
+    "/api/v1/cnn/summary": {
+      "get": {
+        "tags": [
+          "CNN Feature Map Viewer"
+        ],
+        "summary": "Get Summary",
+        "operationId": "get_summary_api_v1_cnn_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CnnSummaryResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cnn/samples": {
+      "get": {
+        "tags": [
+          "CNN Feature Map Viewer"
+        ],
+        "summary": "Get Samples",
+        "operationId": "get_samples_api_v1_cnn_samples_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CnnSamplesResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cnn/predict": {
+      "post": {
+        "tags": [
+          "CNN Feature Map Viewer"
+        ],
+        "summary": "Predict",
+        "operationId": "predict_api_v1_cnn_predict_post",
+        "parameters": [
+          {
+            "name": "sample_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sample Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CnnPredictionResource"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cnn/feature-maps": {
+      "post": {
+        "tags": [
+          "CNN Feature Map Viewer"
+        ],
+        "summary": "Get Feature Maps",
+        "operationId": "get_feature_maps_api_v1_cnn_feature_maps_post",
+        "parameters": [
+          {
+            "name": "layer",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Layer"
+            }
+          },
+          {
+            "name": "channels",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 1,
+              "maxItems": 12,
+              "title": "Channels"
+            }
+          },
+          {
+            "name": "sample_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Sample Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CnnFeatureMapsResource"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -202,6 +405,921 @@
           "bytes"
         ],
         "title": "CheckpointResource"
+      },
+      "CnnCheckpointResource": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "title": "File"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Sha256"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Bytes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "file",
+          "sha256",
+          "bytes"
+        ],
+        "title": "CnnCheckpointResource"
+      },
+      "CnnClassMetricResource": {
+        "properties": {
+          "class_index": {
+            "type": "integer",
+            "maximum": 9.0,
+            "minimum": 0.0,
+            "title": "Class Index"
+          },
+          "class_name": {
+            "type": "string",
+            "title": "Class Name"
+          },
+          "correct": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Correct"
+          },
+          "total": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Total"
+          },
+          "accuracy": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Accuracy"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "class_index",
+          "class_name",
+          "correct",
+          "total",
+          "accuracy"
+        ],
+        "title": "CnnClassMetricResource"
+      },
+      "CnnDatasetResource": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Source Sha256"
+          },
+          "classes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 10,
+            "title": "Classes"
+          },
+          "available_samples": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Available Samples"
+          },
+          "image_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Image Shape"
+          },
+          "split": {
+            "$ref": "#/components/schemas/CnnDatasetSplitResource"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "version",
+          "source",
+          "source_sha256",
+          "classes",
+          "available_samples",
+          "image_shape",
+          "split"
+        ],
+        "title": "CnnDatasetResource"
+      },
+      "CnnDatasetSplitResource": {
+        "properties": {
+          "training": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Training"
+          },
+          "validation": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Validation"
+          },
+          "test": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Test"
+          },
+          "stratified": {
+            "type": "boolean",
+            "title": "Stratified"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "training",
+          "validation",
+          "test",
+          "stratified"
+        ],
+        "title": "CnnDatasetSplitResource"
+      },
+      "CnnEvaluationResource": {
+        "properties": {
+          "samples": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Samples"
+          },
+          "loss": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Loss"
+          },
+          "accuracy": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Accuracy"
+          },
+          "correct": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Correct"
+          },
+          "confusion_matrix": {
+            "items": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 10,
+            "title": "Confusion Matrix"
+          },
+          "per_class": {
+            "items": {
+              "$ref": "#/components/schemas/CnnClassMetricResource"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 10,
+            "title": "Per Class"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "samples",
+          "loss",
+          "accuracy",
+          "correct",
+          "confusion_matrix",
+          "per_class"
+        ],
+        "title": "CnnEvaluationResource"
+      },
+      "CnnFeatureMapResource": {
+        "properties": {
+          "layer": {
+            "type": "string",
+            "title": "Layer"
+          },
+          "layer_label": {
+            "type": "string",
+            "title": "Layer Label"
+          },
+          "operation": {
+            "type": "string",
+            "title": "Operation"
+          },
+          "channel": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Channel"
+          },
+          "tensor_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Tensor Shape"
+          },
+          "map_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Map Shape"
+          },
+          "raw_min": {
+            "type": "number",
+            "title": "Raw Min"
+          },
+          "raw_max": {
+            "type": "number",
+            "title": "Raw Max"
+          },
+          "raw_mean": {
+            "type": "number",
+            "title": "Raw Mean"
+          },
+          "raw_std": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Raw Std"
+          },
+          "normalization": {
+            "type": "string",
+            "title": "Normalization"
+          },
+          "display_scale": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Display Scale"
+          },
+          "values": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Values"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "layer",
+          "layer_label",
+          "operation",
+          "channel",
+          "tensor_shape",
+          "map_shape",
+          "raw_min",
+          "raw_max",
+          "raw_mean",
+          "raw_std",
+          "normalization",
+          "display_scale",
+          "values"
+        ],
+        "title": "CnnFeatureMapResource"
+      },
+      "CnnFeatureMapsResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "input": {
+            "$ref": "#/components/schemas/CnnInputResource"
+          },
+          "prediction": {
+            "$ref": "#/components/schemas/CnnPredictionSummaryResource"
+          },
+          "representation": {
+            "$ref": "#/components/schemas/CnnRepresentationResource"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "model_version",
+          "input",
+          "prediction",
+          "representation"
+        ],
+        "title": "CnnFeatureMapsResource"
+      },
+      "CnnInputResource": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "sample_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sample Id"
+          },
+          "source_index": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Index"
+          },
+          "registered_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registered Label"
+          },
+          "original_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Original Shape"
+          },
+          "tensor_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Tensor Shape"
+          },
+          "preprocessing": {
+            "$ref": "#/components/schemas/CnnPreprocessingResource"
+          },
+          "image_data_uri": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,",
+            "title": "Image Data Uri"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source",
+          "original_shape",
+          "tensor_shape",
+          "preprocessing",
+          "image_data_uri"
+        ],
+        "title": "CnnInputResource"
+      },
+      "CnnLayerResource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "operation": {
+            "type": "string",
+            "title": "Operation"
+          },
+          "channels": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Channels"
+          },
+          "tensor_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Tensor Shape"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "operation",
+          "channels",
+          "tensor_shape"
+        ],
+        "title": "CnnLayerResource"
+      },
+      "CnnModelResource": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "framework": {
+            "type": "string",
+            "title": "Framework"
+          },
+          "architecture": {
+            "type": "string",
+            "title": "Architecture"
+          },
+          "parameter_count": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Parameter Count"
+          },
+          "input_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Input Shape"
+          },
+          "output_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 1,
+            "minItems": 1,
+            "title": "Output Shape"
+          },
+          "dataset": {
+            "type": "string",
+            "title": "Dataset"
+          },
+          "checkpoint": {
+            "$ref": "#/components/schemas/CnnCheckpointResource"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "version",
+          "framework",
+          "architecture",
+          "parameter_count",
+          "input_shape",
+          "output_shape",
+          "dataset",
+          "checkpoint"
+        ],
+        "title": "CnnModelResource"
+      },
+      "CnnPredictionResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "input": {
+            "$ref": "#/components/schemas/CnnInputResource"
+          },
+          "prediction": {
+            "$ref": "#/components/schemas/CnnPredictionSummaryResource"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "model_version",
+          "input",
+          "prediction"
+        ],
+        "title": "CnnPredictionResource"
+      },
+      "CnnPredictionSummaryResource": {
+        "properties": {
+          "predicted_index": {
+            "type": "integer",
+            "maximum": 9.0,
+            "minimum": 0.0,
+            "title": "Predicted Index"
+          },
+          "predicted_class": {
+            "type": "string",
+            "title": "Predicted Class"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "probabilities": {
+            "items": {
+              "$ref": "#/components/schemas/CnnProbabilityResource"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 10,
+            "title": "Probabilities"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "predicted_index",
+          "predicted_class",
+          "confidence",
+          "probabilities"
+        ],
+        "title": "CnnPredictionSummaryResource"
+      },
+      "CnnPreprocessingResource": {
+        "properties": {
+          "color_mode": {
+            "type": "string",
+            "title": "Color Mode"
+          },
+          "image_size": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              }
+            ],
+            "title": "Image Size"
+          },
+          "value_range": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              }
+            ],
+            "title": "Value Range"
+          },
+          "resize_policy": {
+            "type": "string",
+            "title": "Resize Policy"
+          },
+          "normalization": {
+            "type": "string",
+            "title": "Normalization"
+          },
+          "mean": {
+            "type": "number",
+            "title": "Mean"
+          },
+          "std": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Std"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "color_mode",
+          "image_size",
+          "value_range",
+          "resize_policy",
+          "normalization",
+          "mean",
+          "std"
+        ],
+        "title": "CnnPreprocessingResource"
+      },
+      "CnnProbabilityResource": {
+        "properties": {
+          "class_index": {
+            "type": "integer",
+            "maximum": 9.0,
+            "minimum": 0.0,
+            "title": "Class Index"
+          },
+          "class_name": {
+            "type": "string",
+            "title": "Class Name"
+          },
+          "probability": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Probability"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "class_index",
+          "class_name",
+          "probability"
+        ],
+        "title": "CnnProbabilityResource"
+      },
+      "CnnRepresentationResource": {
+        "properties": {
+          "layer": {
+            "$ref": "#/components/schemas/CnnLayerResource"
+          },
+          "activation_tensor_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Activation Tensor Shape"
+          },
+          "maps": {
+            "items": {
+              "$ref": "#/components/schemas/CnnFeatureMapResource"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Maps"
+          },
+          "comparison_rule": {
+            "type": "string",
+            "title": "Comparison Rule"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "layer",
+          "activation_tensor_shape",
+          "maps",
+          "comparison_rule"
+        ],
+        "title": "CnnRepresentationResource"
+      },
+      "CnnSampleResource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "source_index": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Source Index"
+          },
+          "label_index": {
+            "type": "integer",
+            "maximum": 9.0,
+            "minimum": 0.0,
+            "title": "Label Index"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "image_data_uri": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,",
+            "title": "Image Data Uri"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "source_index",
+          "label_index",
+          "label",
+          "image_data_uri"
+        ],
+        "title": "CnnSampleResource"
+      },
+      "CnnSamplesResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "samples": {
+            "items": {
+              "$ref": "#/components/schemas/CnnSampleResource"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 10,
+            "title": "Samples"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "samples"
+        ],
+        "title": "CnnSamplesResource"
+      },
+      "CnnSummaryResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "model": {
+            "$ref": "#/components/schemas/CnnModelResource"
+          },
+          "dataset": {
+            "$ref": "#/components/schemas/CnnDatasetResource"
+          },
+          "preprocessing": {
+            "$ref": "#/components/schemas/CnnPreprocessingResource"
+          },
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/CnnLayerResource"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Layers"
+          },
+          "evaluation": {
+            "$ref": "#/components/schemas/CnnEvaluationResource"
+          },
+          "visual_contract": {
+            "$ref": "#/components/schemas/CnnVisualContractResource"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "status",
+          "model",
+          "dataset",
+          "preprocessing",
+          "layers",
+          "evaluation",
+          "visual_contract",
+          "limitations"
+        ],
+        "title": "CnnSummaryResource"
+      },
+      "CnnVisualContractResource": {
+        "properties": {
+          "transport": {
+            "type": "string",
+            "title": "Transport"
+          },
+          "normalization": {
+            "type": "string",
+            "title": "Normalization"
+          },
+          "display_scale": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Display Scale"
+          },
+          "maximum_channels_per_request": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Maximum Channels Per Request"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "transport",
+          "normalization",
+          "display_scale",
+          "maximum_channels_per_request"
+        ],
+        "title": "CnnVisualContractResource"
       },
       "DatasetResource": {
         "properties": {

@@ -3,7 +3,7 @@ from __future__ import annotations
 from app.main import app
 
 
-def test_openapi_contains_only_the_published_sprint_one_business_routes() -> None:
+def test_openapi_contains_the_published_sprint_one_and_two_business_routes() -> None:
     paths = app.openapi()["paths"]
     assert {
         "/health",
@@ -11,6 +11,10 @@ def test_openapi_contains_only_the_published_sprint_one_business_routes() -> Non
         "/api/v1/neural-network/summary",
         "/api/v1/neural-network/forward",
         "/api/v1/neural-network/training-history",
+        "/api/v1/cnn/summary",
+        "/api/v1/cnn/samples",
+        "/api/v1/cnn/predict",
+        "/api/v1/cnn/feature-maps",
     }.issubset(paths)
     forbidden = {
         "/api/v1/neural-network/catalog",
@@ -27,4 +31,12 @@ def test_forward_response_contract_references_typed_resources() -> None:
     success_schema = operation["responses"]["200"]["content"]["application/json"]["schema"]
     error_schema = operation["responses"]["422"]["content"]["application/json"]["schema"]
     assert success_schema["$ref"].endswith("/ForwardResource")
+    assert error_schema["$ref"].endswith("/ErrorEnvelope")
+
+
+def test_feature_map_response_contract_references_typed_resources() -> None:
+    operation = app.openapi()["paths"]["/api/v1/cnn/feature-maps"]["post"]
+    success_schema = operation["responses"]["200"]["content"]["application/json"]["schema"]
+    error_schema = operation["responses"]["422"]["content"]["application/json"]["schema"]
+    assert success_schema["$ref"].endswith("/CnnFeatureMapsResource")
     assert error_schema["$ref"].endswith("/ErrorEnvelope")
