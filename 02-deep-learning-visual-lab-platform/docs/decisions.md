@@ -55,3 +55,42 @@ requirement.
 **Reason:** Local browser requests no longer depend on cross-port CORS behavior,
 while FastAPI remains the only business API and production may still provide an
 explicit `NEXT_PUBLIC_API_ROOT`.
+
+## ADR-008 — Official sprite as a self-contained learning dataset
+
+**Decision:** Sprint 2 versions the official 900-image Fashion-MNIST sprite and
+records its SHA-256.
+
+**Reason:** The release stays reproducible and honest about its limited evidence
+without depending on a runtime download.
+
+## ADR-009 — Controlled PyTorch hooks
+
+**Decision:** Feature maps come from removable forward hooks on two allowlisted
+ReLU layers.
+
+**Reason:** The service observes the registered forward pass without modifying
+the model or exposing arbitrary modules.
+
+## ADR-010 — Raw image bodies instead of multipart
+
+**Decision:** Prediction endpoints accept a registered sample ID or a bounded
+raw PNG/JPEG body.
+
+**Reason:** The contract remains small and requires no multipart dependency,
+while preserving typed query controls and safe upload limits.
+
+## ADR-011 — Per-channel display normalization
+
+**Decision:** Every selected activation channel is mapped independently to
+`[0, 1]` for display while raw statistics remain in the API.
+
+**Reason:** Spatial patterns remain visible without falsely implying that color
+intensity is comparable across channels.
+
+## ADR-012 — No database in Sprint 2
+
+**Decision:** Immutable dataset, model and report evidence remains file-based.
+
+**Reason:** Sprint 2 has no mutable product state, user accounts or durable
+runtime workflow that would justify persistence infrastructure.

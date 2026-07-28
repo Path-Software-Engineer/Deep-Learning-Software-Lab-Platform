@@ -9,12 +9,12 @@ def test_health_reports_loaded_registered_artifact(client: TestClient) -> None:
     assert response.json() == {
         "status": "ok",
         "service": "deep-learning-visual-lab-api",
-        "version": "0.1.0",
-        "artifact": "xor-mlp-v1",
+        "version": "0.2.0",
+        "artifact": "xor-mlp-v1|fashion-cnn-v1",
     }
 
 
-def test_platform_catalog_contains_only_the_implemented_sprint_module(
+def test_platform_catalog_contains_both_implemented_sprint_modules(
     client: TestClient,
 ) -> None:
     response = client.get("/api/v1/platform/modules")
@@ -27,5 +27,13 @@ def test_platform_catalog_contains_only_the_implemented_sprint_module(
             "path": "/",
             "status": "available",
             "sprint": 1,
-        }
+        },
+        {
+            "id": "cnn-feature-map-viewer",
+            "name": "CNN Feature Map Viewer",
+            "description": "Classify Fashion-MNIST images and inspect allowlisted feature maps.",
+            "path": "/cnn",
+            "status": "available",
+            "sprint": 2,
+        },
     ]

@@ -27,7 +27,7 @@ Next.js presentation
 - maps validation and artifact failures to safe error envelopes;
 - never performs training during a request.
 
-### Neural Network Explainer
+### Neural Network Explainer bounded context
 
 - defines the controlled XOR contract and 2–4–1 MLP;
 - loads one checksum-verified checkpoint at service construction;
@@ -35,11 +35,22 @@ Next.js presentation
 - creates transport-safe layer snapshots;
 - returns registered offline training history.
 
+### CNN Feature Map Viewer bounded context
+
+- owns the official Fashion-MNIST sprite contract and deterministic split;
+- loads one checksum-verified CNN checkpoint and registered sample gallery;
+- validates registered samples or bounded temporary PNG/JPEG inputs;
+- runs inference and captures only allowlisted ReLU activations through
+  removable PyTorch forward hooks;
+- preserves raw channel statistics and produces display-only normalized
+  matrices;
+- has no knowledge of HTTP or React.
+
 ### Offline pipeline
 
-`scripts/train_neural_network.py` fixes seed `190`, trains with Adam and
-`BCELoss`, and writes the checkpoint, manifest, history and metrics. These
-artifacts form one versioned evidence set.
+Each bounded context has its own deterministic offline training script. Sprint
+1 writes the XOR evidence set. Sprint 2 fixes seed `20260728`, trains the Fashion
+CNN and writes its checkpoint, manifest, sample gallery, history and metrics.
 
 ## Dependency rule
 
@@ -49,6 +60,5 @@ PyTorch or activation mathematics.
 
 ## Growth rule
 
-Only the Neural Network Explainer context exists in Sprint 1. CNN and
-autoencoder directories will be created when their sprints begin, avoiding
-empty speculative architecture.
+The Neural Network Explainer and CNN Feature Map Viewer contexts are active.
+The autoencoder context remains absent until Sprint 3 is explicitly authorized.

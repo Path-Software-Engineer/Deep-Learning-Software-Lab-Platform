@@ -4,6 +4,13 @@ import type {
   NeuralNetworkSummary,
   TrainingHistory
 } from "@/types/neural-network";
+import type {
+  CnnFeatureMaps,
+  CnnImageInput,
+  CnnPrediction,
+  CnnSamples,
+  CnnSummary
+} from "@/types/cnn";
 
 const API_ROOT = (
   process.env.NEXT_PUBLIC_API_ROOT ?? ""
@@ -29,13 +36,15 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       cache: "no-store",
       signal: init?.signal ?? AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       headers: {
-        "Content-Type": "application/json",
+        ...(typeof init?.body === "string"
+          ? { "Content-Type": "application/json" }
+          : {}),
         ...init?.headers
       }
     });
   } catch {
     throw new LabApiError(
-      "The neural engine is unreachable. Start FastAPI and retry.",
+      "The lab engine is unreachable. Start FastAPI and retry.",
       "network_unavailable",
       0
     );
@@ -65,4 +74,42 @@ export const neuralNetworkApi = {
       method: "POST",
       body: JSON.stringify({ inputs })
     })
+};
+
+function cnnInputRequest(
+  path: string,
+  input: CnnImageInput,
+): RequestInit & { path: string } {
+  const query = new URLSearchParams();
+  if (input.sampleId) query.set("sample_id", input.sampleId);
+  const suffix = query.size ? `?${query.toString()}` : "";
+  return {
+    path: `${path}${suffix}`,
+    method: "POST",
+    body: input.file,
+    headers: input.file ? { "Content-Type": input.file.type } : undefined
+  };
+}
+
+export const cnnApi = {
+  summary: () => request<CnnSummary>("/api/v1/cnn/summary"),
+  samples: () => request<CnnSamples>("/api/v1/cnn/samples"),
+  predict: (input: CnnImageInput) => {
+    const { path, ...init } = cnnInputRequest("/api/v1/cnn/predict", input);
+    return request<CnnPrediction>(path, init);
+  },
+  featureMaps: (
+    input: CnnImageInput,
+    layer: string,
+    channels: number[]
+  ) => {
+    const prepared = cnnInputRequest("/api/v1/cnn/feature-maps", input);
+    const [base, existing = ""] = prepared.path.split("?");
+    const query = new URLSearchParams(existing);
+    query.set("layer", layer);
+    channels.forEach((channel) => query.append("channels", String(channel)));
+    const { path: _, ...init } = prepared;
+    void _;
+    return request<CnnFeatureMaps>(`${base}?${query.toString()}`, init);
+  }
 };

@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { LabApiError, neuralNetworkApi } from "@/lib/api-client";
+import { cnnApi, LabApiError, neuralNetworkApi } from "@/lib/api-client";
 
-import { traceFixture } from "./fixtures";
+import { cnnFeatureMapsFixture, traceFixture } from "./fixtures";
 
 describe("neuralNetworkApi", () => {
   afterEach(() => {
@@ -51,6 +51,59 @@ describe("neuralNetworkApi", () => {
       expect.objectContaining<Partial<LabApiError>>({
         code: "validation_error",
         status: 422
+      })
+    );
+  });
+});
+
+describe("cnnApi", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("requests a registered sample with a bounded layer and channel selection", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(cnnFeatureMapsFixture), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await cnnApi.featureMaps(
+      { sampleId: "fashion-08" },
+      "block1_relu",
+      [0, 3]
+    );
+
+    expect(result.prediction.predicted_class).toBe("Bag");
+    const [path, options] = fetchMock.mock.calls[0];
+    const url = new URL(String(path), "http://localhost");
+    expect(url.pathname).toBe("/api/v1/cnn/feature-maps");
+    expect(url.searchParams.get("sample_id")).toBe("fashion-08");
+    expect(url.searchParams.get("layer")).toBe("block1_relu");
+    expect(url.searchParams.getAll("channels")).toEqual(["0", "3"]);
+    expect(options).toEqual(expect.objectContaining({ method: "POST" }));
+  });
+
+  it("sends uploads as raw image bodies without adding a JSON content type", async () => {
+    const file = new File(["image"], "fashion.png", { type: "image/png" });
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(cnnFeatureMapsFixture), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await cnnApi.predict({ file });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/v1/cnn/predict",
+      expect.objectContaining({
+        method: "POST",
+        body: file,
+        headers: { "Content-Type": "image/png" }
       })
     );
   });
