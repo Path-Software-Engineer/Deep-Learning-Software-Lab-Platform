@@ -1,0 +1,462 @@
+{
+  "model_version": "fashion-cnn-v1",
+  "framework": "PyTorch 2.9.0+cpu",
+  "dataset_version": "fashion-mnist-official-sprite-900-v1",
+  "dataset_source": "https://github.com/zalandoresearch/fashion-mnist/blob/master/doc/img/fashion-mnist-sprite.png",
+  "dataset_source_sha256": "a7de0a151f8c68e6e96f157a018ac290d1f6b0e7845892c3d7d85cb64961c3cb",
+  "checkpoint": "fashion-cnn-v1.pt",
+  "checkpoint_sha256": "9f07a60d97ef03ecb5b80086ddc9cd48077db5be5a89cd4663e2ec916bc7639e",
+  "checkpoint_bytes": 835989,
+  "sample_gallery": "sample-gallery.json",
+  "sample_gallery_sha256": "f130834048c115e99ead5a0c10eb83ae558e3875b168b030bc9b2af2a902a571",
+  "model_configuration": {
+    "input_channels": 1,
+    "image_size": 28,
+    "conv1_channels": 16,
+    "conv2_channels": 32,
+    "hidden_features": 128,
+    "dropout": 0.25,
+    "class_count": 10
+  },
+  "training_configuration": {
+    "seed": 20260728,
+    "epochs": 30,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "optimizer": "Adam",
+    "loss_function": "CrossEntropyLoss",
+    "train_per_class": 60,
+    "validation_per_class": 15,
+    "test_per_class": 15,
+    "augmentation_copies": 2
+  },
+  "preprocessing_configuration": {
+    "color_mode": "grayscale",
+    "image_size": [
+      28,
+      28
+    ],
+    "value_range": [
+      0.0,
+      1.0
+    ],
+    "resize_policy": "bilinear-to-28x28",
+    "normalization": "(pixel-mean)/std",
+    "mean": 0.2860406,
+    "std": 0.35302424
+  },
+  "classes": [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot"
+  ],
+  "validation": {
+    "samples": 150,
+    "loss": 0.822601378361384,
+    "accuracy": 0.8533333539962769,
+    "correct": 128,
+    "confusion_matrix": [
+      [
+        11,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        11,
+        0,
+        3,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        12,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        2,
+        1,
+        0,
+        0,
+        10,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        15,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        15,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        13
+      ]
+    ],
+    "per_class": [
+      {
+        "class_index": 0,
+        "class_name": "T-shirt/top",
+        "correct": 11,
+        "total": 15,
+        "accuracy": 0.7333333333333333
+      },
+      {
+        "class_index": 1,
+        "class_name": "Trouser",
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      {
+        "class_index": 2,
+        "class_name": "Pullover",
+        "correct": 11,
+        "total": 15,
+        "accuracy": 0.7333333333333333
+      },
+      {
+        "class_index": 3,
+        "class_name": "Dress",
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      {
+        "class_index": 4,
+        "class_name": "Coat",
+        "correct": 12,
+        "total": 15,
+        "accuracy": 0.8
+      },
+      {
+        "class_index": 5,
+        "class_name": "Sandal",
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      {
+        "class_index": 6,
+        "class_name": "Shirt",
+        "correct": 10,
+        "total": 15,
+        "accuracy": 0.6666666666666666
+      },
+      {
+        "class_index": 7,
+        "class_name": "Sneaker",
+        "correct": 15,
+        "total": 15,
+        "accuracy": 1.0
+      },
+      {
+        "class_index": 8,
+        "class_name": "Bag",
+        "correct": 15,
+        "total": 15,
+        "accuracy": 1.0
+      },
+      {
+        "class_index": 9,
+        "class_name": "Ankle boot",
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      }
+    ]
+  },
+  "evaluation": {
+    "samples": 150,
+    "loss": 0.6696772414445877,
+    "accuracy": 0.8133333325386047,
+    "correct": 122,
+    "confusion_matrix": [
+      [
+        12,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        14,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        10,
+        0,
+        2,
+        0,
+        2,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        11,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        1,
+        10,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        1,
+        2,
+        0,
+        9,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        15,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        14
+      ]
+    ],
+    "per_class": [
+      {
+        "class_index": 0,
+        "class_name": "T-shirt/top",
+        "correct": 12,
+        "total": 15,
+        "accuracy": 0.8
+      },
+      {
+        "class_index": 1,
+        "class_name": "Trouser",
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      {
+        "class_index": 2,
+        "class_name": "Pullover",
+        "correct": 10,
+        "total": 15,
+        "accuracy": 0.6666666666666666
+      },
+      {
+        "class_index": 3,
+        "class_name": "Dress",
+        "correct": 11,
+        "total": 15,
+        "accuracy": 0.7333333333333333
+      },
+      {
+        "class_index": 4,
+        "class_name": "Coat",
+        "correct": 10,
+        "total": 15,
+        "accuracy": 0.6666666666666666
+      },
+      {
+        "class_index": 5,
+        "class_name": "Sandal",
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      },
+      {
+        "class_index": 6,
+        "class_name": "Shirt",
+        "correct": 9,
+        "total": 15,
+        "accuracy": 0.6
+      },
+      {
+        "class_index": 7,
+        "class_name": "Sneaker",
+        "correct": 13,
+        "total": 15,
+        "accuracy": 0.8666666666666667
+      },
+      {
+        "class_index": 8,
+        "class_name": "Bag",
+        "correct": 15,
+        "total": 15,
+        "accuracy": 1.0
+      },
+      {
+        "class_index": 9,
+        "class_name": "Ankle boot",
+        "correct": 14,
+        "total": 15,
+        "accuracy": 0.9333333333333333
+      }
+    ]
+  },
+  "training_seconds": 19.304648599994835
+}

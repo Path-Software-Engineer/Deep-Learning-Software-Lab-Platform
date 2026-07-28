@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import { LabApiError, neuralNetworkApi } from "@/lib/api-client";
@@ -120,6 +121,7 @@ export function NeuralNetworkExplainer() {
           <a href="#network"><span>02</span>Signal trace</a>
           <a href="#learning"><span>03</span>Learning evidence</a>
           <a href="#limits"><span>04</span>Boundaries</a>
+          <Link href="/cnn"><span>05</span>CNN feature maps</Link>
         </nav>
         <div className={styles.engineCard}>
           <p>OFFICIAL ENGINE</p>

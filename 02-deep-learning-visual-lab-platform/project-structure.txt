@@ -3,46 +3,56 @@
 |-- pyproject.toml
 |-- requirements.txt
 |-- requirements-dev.txt
-|-- frontend/
-|   `-- lab-app/
-|       |-- app/
-|       |-- features/neural-network/components/
-|       |-- lib/
-|       |-- types/
-|       `-- tests/
-|-- backend/
-|   `-- api/
-|       |-- app/
-|       |   |-- common/
-|       |   |-- core/
-|       |   |-- neural_network/
-|       |   `-- platform/
-|       `-- tests/
+|-- data/raw/fashion-mnist-official/
+|   |-- SOURCE.md
+|   `-- fashion-mnist-sprite.png
+|-- frontend/lab-app/
+|   |-- app/
+|   |   |-- page.tsx
+|   |   `-- cnn/page.tsx
+|   |-- features/
+|   |   |-- neural-network/components/
+|   |   `-- cnn/components/
+|   |-- lib/
+|   |-- types/
+|   `-- tests/
+|-- backend/api/
+|   |-- app/
+|   |   |-- common/
+|   |   |-- core/
+|   |   |-- neural_network/
+|   |   |-- cnn/
+|   |   `-- platform/
+|   `-- tests/
 |-- ai-services/
-|   `-- neural-network-explainer/
-|       |-- src/neural_network_explainer/
+|   |-- neural-network-explainer/
+|   |   |-- src/neural_network_explainer/
+|   |   `-- tests/
+|   `-- cnn-feature-map-viewer/
+|       |-- src/cnn_feature_map_viewer/
 |       `-- tests/
 |-- models/
-|   `-- neural-network/
+|   |-- neural-network/
+|   `-- cnn/
+|       |-- fashion-cnn-v1.pt
 |       |-- manifest.json
-|       |-- training-history.json
-|       `-- xor-mlp-v1.pt
+|       |-- sample-gallery.json
+|       `-- training-history.json
 |-- reports/
-|   |-- metrics/neural-network/
-|   `-- summaries/neural-network/
+|   |-- metrics/{neural-network,cnn}/
+|   |-- summaries/{neural-network,cnn}/
+|   `-- visual-validation/
 |-- labs/
-|   `-- activation-behavior-lab/
+|   |-- activation-behavior-lab/
+|   `-- feature-map-normalization-lab/
 |-- docs/
 |   |-- api/openapi.json
-|   `-- sprints/sprint-01-neural-network-explainer/
-|       |-- week-01/
-|       |-- week-02/
-|       `-- week-03/
-|-- tests/
-|   |-- contract/
-|   `-- integration/
+|   `-- sprints/
+|       |-- sprint-01-neural-network-explainer/
+|       `-- sprint-02-cnn-feature-map-viewer/
+|-- tests/{contract,integration}/
 |-- checks/
 `-- scripts/
 
-The Sprint 1 neural engine is self-contained and implemented with PyTorch.
-Future Sprint 2 and Sprint 3 implementation directories are intentionally absent.
+Sprint 1 and Sprint 2 are active, self-contained PyTorch bounded contexts.
+The Sprint 3 autoencoder context is intentionally absent.

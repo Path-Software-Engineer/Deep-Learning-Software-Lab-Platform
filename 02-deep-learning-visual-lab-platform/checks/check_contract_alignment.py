@@ -11,6 +11,10 @@ BUSINESS_ROUTES = {
     "/api/v1/neural-network/summary": "get",
     "/api/v1/neural-network/forward": "post",
     "/api/v1/neural-network/training-history": "get",
+    "/api/v1/cnn/summary": "get",
+    "/api/v1/cnn/samples": "get",
+    "/api/v1/cnn/predict": "post",
+    "/api/v1/cnn/feature-maps": "post",
 }
 FORBIDDEN_ROUTES = {
     "/api/v1/neural-network/catalog",
@@ -39,8 +43,8 @@ def main() -> None:
     for path in FORBIDDEN_ROUTES:
         assert path not in api_client, f"frontend client references unsupported route {path}"
 
-    print("OK - Sprint 1 OpenAPI/frontend contract alignment passed")
-    print("Routes: platform modules, model summary, forward trace and training history")
+    print("OK - Sprint 1 and Sprint 2 OpenAPI/frontend contract alignment passed")
+    print("Routes: platform, XOR trace, CNN prediction and CNN feature maps")
 
 
 if __name__ == "__main__":

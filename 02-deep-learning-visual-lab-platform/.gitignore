@@ -4,11 +4,13 @@ __pycache__/
 .pytest_cache/
 .pytest-tmp/
 .pytest-runs/
+.quality-tmp/
 .mypy_cache/
 .ruff_cache/
 frontend/node_modules/
 frontend/lab-app/node_modules/
 frontend/lab-app/.next/
+frontend/lab-app/.npm-cache/
 frontend/lab-app/coverage/
 frontend/lab-app/test-results/
 frontend/lab-app/playwright-report/
@@ -21,3 +23,11 @@ htmlcov/
 *.log
 .env
 .env.local
+.runtime/
+data/raw/*
+!data/raw/fashion-mnist-official/
+data/raw/fashion-mnist-official/*
+!data/raw/fashion-mnist-official/fashion-mnist-sprite.png
+!data/raw/fashion-mnist-official/SOURCE.md
+# Local prototype artifact superseded by the registered Fashion-MNIST model.
+models/cnn/shape-cnn-v1.pt
