@@ -1,8 +1,17 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { cnnApi, LabApiError, neuralNetworkApi } from "@/lib/api-client";
+import {
+  autoencoderApi,
+  cnnApi,
+  LabApiError,
+  neuralNetworkApi
+} from "@/lib/api-client";
 
-import { cnnFeatureMapsFixture, traceFixture } from "./fixtures";
+import {
+  autoencoderInterpolationFixture,
+  cnnFeatureMapsFixture,
+  traceFixture
+} from "./fixtures";
 
 describe("neuralNetworkApi", () => {
   afterEach(() => {
@@ -104,6 +113,41 @@ describe("cnnApi", () => {
         method: "POST",
         body: file,
         headers: { "Content-Type": "image/png" }
+      })
+    );
+  });
+});
+
+describe("autoencoderApi", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("sends interpolation endpoints and step count as a typed JSON command", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(autoencoderInterpolationFixture), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await autoencoderApi.interpolate(
+      "latent-08-00",
+      "latent-09-00",
+      7
+    );
+
+    expect(result.steps).toHaveLength(7);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/v1/autoencoder/interpolate",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({
+          start_id: "latent-08-00",
+          end_id: "latent-09-00",
+          steps: 7
+        })
       })
     );
   });

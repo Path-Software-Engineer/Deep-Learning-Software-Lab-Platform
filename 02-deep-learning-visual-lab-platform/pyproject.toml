@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "deep-learning-visual-lab-platform"
-version = "0.2.0"
+version = "1.0.0"
 description = "Full-stack educational platform for inspecting neural-network representations."
 requires-python = ">=3.12,<3.13"
 dependencies = [
@@ -30,18 +30,21 @@ where = [
   "backend/api",
   "ai-services/neural-network-explainer/src",
   "ai-services/cnn-feature-map-viewer/src",
+  "ai-services/autoencoder-latent-space/src",
 ]
 
 [tool.pytest.ini_options]
 testpaths = [
   "ai-services/neural-network-explainer/tests",
   "ai-services/cnn-feature-map-viewer/tests",
+  "ai-services/autoencoder-latent-space/tests",
   "backend/api/tests",
   "tests",
 ]
 pythonpath = [
   "ai-services/neural-network-explainer/src",
   "ai-services/cnn-feature-map-viewer/src",
+  "ai-services/autoencoder-latent-space/src",
   "backend/api",
 ]
 addopts = "-ra --strict-config --strict-markers --import-mode=importlib"
@@ -56,18 +59,24 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.mypy]
 python_version = "3.12"
-mypy_path = "backend/api;ai-services/neural-network-explainer/src;ai-services/cnn-feature-map-viewer/src"
+mypy_path = "backend/api;ai-services/neural-network-explainer/src;ai-services/cnn-feature-map-viewer/src;ai-services/autoencoder-latent-space/src"
 files = [
   "backend/api/app",
   "ai-services/neural-network-explainer/src",
   "ai-services/cnn-feature-map-viewer/src",
+  "ai-services/autoencoder-latent-space/src",
 ]
 strict = true
 warn_unused_ignores = true
 
 [tool.coverage.run]
 branch = true
-source = ["app", "neural_network_explainer", "cnn_feature_map_viewer"]
+source = [
+  "app",
+  "neural_network_explainer",
+  "cnn_feature_map_viewer",
+  "autoencoder_latent_space",
+]
 
 [tool.coverage.report]
 show_missing = true

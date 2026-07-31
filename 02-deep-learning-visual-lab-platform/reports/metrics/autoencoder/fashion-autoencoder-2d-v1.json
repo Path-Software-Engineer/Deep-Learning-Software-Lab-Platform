@@ -1,0 +1,27 @@
+{
+  "model_version": "fashion-autoencoder-2d-v1",
+  "validation": {
+    "samples": 150,
+    "mean_squared_error": 0.03360576396085778,
+    "mean_absolute_error": 0.1082311098267432,
+    "pixels_evaluated": 117600
+  },
+  "evaluation": {
+    "samples": 150,
+    "mean_squared_error": 0.03302744807029257,
+    "mean_absolute_error": 0.10652654115845557,
+    "pixels_evaluated": 117600
+  },
+  "training_seconds": 39.90379049999319,
+  "reference_points": 100,
+  "latent_bounds": {
+    "x": [
+      -15.581564903259277,
+      12.256071090698242
+    ],
+    "y": [
+      -7.238800525665283,
+      14.72529411315918
+    ]
+  }
+}
