@@ -39,3 +39,20 @@ Sprint 2 versions the official 840 × 840 Fashion-MNIST sprite as
 The source is a curated official subset, not the complete 70,000-image
 benchmark. Provenance is recorded in
 `data/raw/fashion-mnist-official/SOURCE.md`.
+
+# Fashion-MNIST Sprint 3 Data Contract
+
+Sprint 3 reuses the same source checksum and deterministic 600/150/150 split.
+The autoencoder receives unstandardized grayscale values in `[0, 1]`, because
+its sigmoid decoder produces values on that same reconstruction scale.
+
+- model input and output: `float32`, shape `[N, 1, 28, 28]`;
+- latent tensor: `float32`, shape `[N, 2]`;
+- evaluation: pixel-level MSE and MAE over the 150-image held-out set;
+- gallery: 100 held-out reference points, ten per class;
+- runtime point identifiers: registered and allowlisted;
+- interpolation: 3–12 coordinates on one straight line between two registered
+  endpoints.
+
+Reference labels remain source metadata. They do not turn the latent positions
+into ground-truth semantic clusters.

@@ -22,3 +22,15 @@
   importance.
 - Confidence values are model outputs, not calibrated guarantees.
 - Temporary uploaded images are processed in memory and are not persisted.
+- The autoencoder compresses each image into only two values; this visibility
+  deliberately sacrifices reconstruction capacity.
+- Held-out autoencoder evidence covers 150 images from the controlled sprite,
+  not the complete Fashion-MNIST benchmark or an external dataset.
+- Euclidean distance describes proximity only inside this registered 2D
+  representation and does not guarantee semantic similarity.
+- Smooth interpolation shows continuity of the registered decoder along one
+  segment; it does not demonstrate understanding, disentanglement or causality.
+- Reconstruction MSE and MAE describe pixel differences on `[0, 1]`; neither
+  metric measures perceptual quality by itself.
+- No module is production ready, and no output should drive consequential
+  decisions.

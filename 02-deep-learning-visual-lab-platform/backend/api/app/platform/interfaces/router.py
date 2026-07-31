@@ -33,5 +33,16 @@ def list_modules() -> ModulesResource:
                 status="available",
                 sprint=2,
             ),
+            ModuleResource(
+                id="autoencoder-latent-space-demo",
+                name="Autoencoder Latent Space Demo",
+                description=(
+                    "Compare reconstructions and inspect a registered "
+                    "two-dimensional latent representation."
+                ),
+                path="/autoencoder",
+                status="available",
+                sprint=3,
+            ),
         ]
     )

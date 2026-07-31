@@ -1,0 +1,69 @@
+{
+  "model_version": "fashion-autoencoder-2d-v1",
+  "framework": "PyTorch 2.9.0+cpu",
+  "dataset_version": "fashion-mnist-official-sprite-900-v1",
+  "dataset_source": "https://github.com/zalandoresearch/fashion-mnist/blob/master/doc/img/fashion-mnist-sprite.png",
+  "dataset_source_sha256": "a7de0a151f8c68e6e96f157a018ac290d1f6b0e7845892c3d7d85cb64961c3cb",
+  "checkpoint": "fashion-autoencoder-2d-v1.pt",
+  "checkpoint_sha256": "77462547e9d0eb1e95df72b1419398cc2d0f970fd394c4aec79d725d855586d4",
+  "checkpoint_bytes": 871551,
+  "latent_gallery": "latent-gallery.json",
+  "latent_gallery_sha256": "e6d5ec5643d075ce4ecefaa25ae0ddb10f0e0ba9a17e3c3052072106786b0895",
+  "model_configuration": {
+    "input_channels": 1,
+    "image_size": 28,
+    "encoder_channels_one": 16,
+    "encoder_channels_two": 32,
+    "hidden_features": 64,
+    "latent_dimensions": 2
+  },
+  "training_configuration": {
+    "seed": 20260729,
+    "epochs": 90,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05,
+    "optimizer": "Adam",
+    "loss_function": "MSELoss",
+    "train_per_class": 60,
+    "validation_per_class": 15,
+    "test_per_class": 15,
+    "augmentation_copies": 1
+  },
+  "preprocessing_configuration": {
+    "color_mode": "grayscale",
+    "image_size": [
+      28,
+      28
+    ],
+    "value_range": [
+      0.0,
+      1.0
+    ],
+    "normalization": "pixel-divided-by-255",
+    "reconstruction_output": "sigmoid-bounded-0-to-1"
+  },
+  "validation": {
+    "samples": 150,
+    "mean_squared_error": 0.03360576396085778,
+    "mean_absolute_error": 0.1082311098267432,
+    "pixels_evaluated": 117600
+  },
+  "evaluation": {
+    "samples": 150,
+    "mean_squared_error": 0.03302744807029257,
+    "mean_absolute_error": 0.10652654115845557,
+    "pixels_evaluated": 117600
+  },
+  "latent_bounds": {
+    "x": [
+      -15.581564903259277,
+      12.256071090698242
+    ],
+    "y": [
+      -7.238800525665283,
+      14.72529411315918
+    ]
+  },
+  "training_seconds": 39.90379049999319
+}

@@ -302,9 +302,7 @@
 }
 
 .content {
-  width: min(100%, 1320px);
-  margin: 0 auto;
-  padding: 54px 54px 28px;
+  min-width: 0;
 }
 
 .errorBanner {
@@ -1266,10 +1264,6 @@
     grid-template-columns: 210px minmax(0, 1fr);
   }
 
-  .content {
-    padding-inline: 34px;
-  }
-
   .workspaceGrid {
     grid-template-columns: 1fr;
   }
@@ -1337,10 +1331,6 @@
     font-size: 8px;
   }
 
-  .content {
-    padding: 38px 24px 24px;
-  }
-
   .hero {
     grid-template-columns: 1fr;
   }
@@ -1395,10 +1385,6 @@
 
   .status code {
     display: none;
-  }
-
-  .content {
-    padding: 28px 16px 20px;
   }
 
   .hero {
