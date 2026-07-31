@@ -60,3 +60,24 @@ Observable layer IDs are `block1_relu` and `block2_relu`. Forward hooks are
 registered only for the requested allowlist and removed after inference.
 Display matrices use independent per-channel min–max normalization; raw
 minimum, maximum, mean and standard deviation remain part of the resource.
+
+## Registered Sprint 3 model
+
+- version: `fashion-autoencoder-2d-v1`;
+- engine: PyTorch 2.9 CPU;
+- topology: convolutional encoder, dense 2D bottleneck and convolutional
+  decoder;
+- parameter count: `215923`;
+- optimizer: Adam;
+- loss: MSELoss;
+- seed: `20260729`;
+- execution: offline through `scripts/train_autoencoder.py`.
+
+The registered set is the checkpoint, manifest, training history, latent
+gallery, metrics JSON and summary Markdown. The loader verifies dataset/model
+versions, configurations, byte sizes and SHA-256 digests before serving.
+
+Encoding, reconstruction, neighbor ranking and interpolation decoding belong to
+the neural service. The client may choose IDs and step count but may not
+recompute latent results. Held-out evidence is MSE `0.0330274481` and MAE
+`0.1065265412` over 150 images.

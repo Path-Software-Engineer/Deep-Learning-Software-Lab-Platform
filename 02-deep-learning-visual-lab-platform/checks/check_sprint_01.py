@@ -30,11 +30,6 @@ def main() -> None:
     if missing:
         raise SystemExit(f"Missing Sprint 1 evidence: {', '.join(missing)}")
 
-    future_contexts = [PROJECT_ROOT / "ai-services" / "autoencoder-latent-space"]
-    opened = [str(path.relative_to(PROJECT_ROOT)) for path in future_contexts if path.exists()]
-    if opened:
-        raise SystemExit(f"Future sprint implementation opened early: {', '.join(opened)}")
-
     manifest = json.loads(
         (PROJECT_ROOT / "models" / "neural-network" / "manifest.json").read_text(
             encoding="utf-8"
@@ -68,6 +63,7 @@ def main() -> None:
     print("OK - Sprint 1 integrated repository check passed")
     print("Boundary: Next.js -> FastAPI -> registered PyTorch checkpoint")
     print("Training: deterministic offline script; HTTP inference is read-only")
+    print("Regression: later bounded contexts do not change Sprint 1 evidence")
 
 
 if __name__ == "__main__":

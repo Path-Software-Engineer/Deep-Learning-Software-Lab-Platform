@@ -82,3 +82,44 @@ Uses the same image input plus:
 
 Returns the prediction, tensor shape, selected maps, raw channel statistics and
 display-only normalized matrices.
+
+## `GET /autoencoder/summary`
+
+Returns the registered checkpoint, dataset, preprocessing, held-out
+reconstruction metrics, latent-space contract and evidence limitations.
+
+## `GET /autoencoder/samples`
+
+Returns one held-out registered image per Fashion-MNIST reference class with its
+2D coordinate and point reconstruction error.
+
+## `GET /autoencoder/latent-points`
+
+Returns 100 registered coordinates, labels, images, errors and plot bounds.
+Labels are dataset references, not discovered semantic clusters.
+
+## `POST /autoencoder/reconstruct`
+
+Request:
+
+```json
+{ "point_id": "latent-08-00" }
+```
+
+Returns the source, checkpoint reconstruction, MSE, MAE, coordinate and five
+nearest registered points. Unknown IDs use the shared typed error envelope.
+
+## `POST /autoencoder/interpolate`
+
+Request:
+
+```json
+{
+  "start_id": "latent-01-00",
+  "end_id": "latent-09-00",
+  "steps": 7
+}
+```
+
+The endpoints must differ and steps must be between 3 and 12. Every returned
+image is produced by the registered PyTorch decoder.

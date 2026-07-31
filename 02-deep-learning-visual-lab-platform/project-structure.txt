@@ -9,10 +9,13 @@
 |-- frontend/lab-app/
 |   |-- app/
 |   |   |-- page.tsx
-|   |   `-- cnn/page.tsx
+|   |   |-- cnn/page.tsx
+|   |   `-- autoencoder/page.tsx
+|   |-- components/platform/
 |   |-- features/
 |   |   |-- neural-network/components/
-|   |   `-- cnn/components/
+|   |   |-- cnn/components/
+|   |   `-- autoencoder/components/
 |   |-- lib/
 |   |-- types/
 |   `-- tests/
@@ -22,37 +25,49 @@
 |   |   |-- core/
 |   |   |-- neural_network/
 |   |   |-- cnn/
+|   |   |-- autoencoder/
 |   |   `-- platform/
 |   `-- tests/
 |-- ai-services/
 |   |-- neural-network-explainer/
 |   |   |-- src/neural_network_explainer/
 |   |   `-- tests/
-|   `-- cnn-feature-map-viewer/
-|       |-- src/cnn_feature_map_viewer/
+|   |-- cnn-feature-map-viewer/
+|   |   |-- src/cnn_feature_map_viewer/
+|   |   `-- tests/
+|   `-- autoencoder-latent-space/
+|       |-- src/autoencoder_latent_space/
 |       `-- tests/
 |-- models/
 |   |-- neural-network/
-|   `-- cnn/
+|   |-- cnn/
 |       |-- fashion-cnn-v1.pt
 |       |-- manifest.json
 |       |-- sample-gallery.json
 |       `-- training-history.json
+|   `-- autoencoder/
+|       |-- fashion-autoencoder-2d-v1.pt
+|       |-- manifest.json
+|       |-- latent-gallery.json
+|       `-- training-history.json
 |-- reports/
-|   |-- metrics/{neural-network,cnn}/
-|   |-- summaries/{neural-network,cnn}/
+|   |-- metrics/{neural-network,cnn,autoencoder}/
+|   |-- summaries/{neural-network,cnn,autoencoder}/
 |   `-- visual-validation/
 |-- labs/
 |   |-- activation-behavior-lab/
-|   `-- feature-map-normalization-lab/
+|   |-- feature-map-normalization-lab/
+|   `-- latent-interpolation-lab/
 |-- docs/
 |   |-- api/openapi.json
+|   |-- releases/v1.0.0-deep-learning-visual-lab-platform.md
 |   `-- sprints/
 |       |-- sprint-01-neural-network-explainer/
-|       `-- sprint-02-cnn-feature-map-viewer/
+|       |-- sprint-02-cnn-feature-map-viewer/
+|       `-- sprint-03-autoencoder-latent-space-demo/
 |-- tests/{contract,integration}/
 |-- checks/
 `-- scripts/
 
-Sprint 1 and Sprint 2 are active, self-contained PyTorch bounded contexts.
-The Sprint 3 autoencoder context is intentionally absent.
+All three sprints are active, self-contained PyTorch bounded contexts behind
+one FastAPI contract and one Next.js platform navigation.

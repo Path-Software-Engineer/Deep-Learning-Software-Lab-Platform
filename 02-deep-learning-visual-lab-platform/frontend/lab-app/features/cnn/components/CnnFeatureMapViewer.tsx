@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { PlatformShell } from "@/components/platform/PlatformShell";
 import { cnnApi, LabApiError } from "@/lib/api-client";
 import type {
   CnnFeatureMaps,
@@ -131,56 +131,21 @@ export function CnnFeatureMapViewer() {
   const busy = loading || running;
 
   return (
-    <div className={styles.shell}>
-      <aside className={styles.sidebar}>
-        <Link className={styles.brand} href="/" aria-label="Axon platform home">
-          <span className={styles.brandMark} aria-hidden="true"><i /><i /><i /></span>
-          <span><strong>Axon</strong><small>Neural learning lab</small></span>
-        </Link>
-
-        <div className={styles.moduleLabel}>LAB MODULES</div>
-        <nav aria-label="Platform modules">
-          <Link href="/">
-            <span>01</span>
-            <div><strong>Neural trace</strong><small>XOR explainer</small></div>
-          </Link>
-          <Link className={styles.activeNav} href="/cnn" aria-current="page">
-            <span>02</span>
-            <div><strong>Feature maps</strong><small>Fashion CNN</small></div>
-          </Link>
-        </nav>
-
-        <div className={styles.sectionNav}>
-          <a href="#source">01 / Input source</a>
-          <a href="#representation">02 / Representation</a>
-          <a href="#evidence">03 / Evidence boundary</a>
-        </div>
-
-        <div className={styles.engineCard}>
-          <p>OFFICIAL ENGINE</p>
-          <strong>PyTorch · checkpoint</strong>
-          <span><i /> read-only inference</span>
-        </div>
-        <div className={styles.profile}>
-          <span>JL</span>
-          <div><strong>Jean Loa</strong><small>Software engineering path</small></div>
-        </div>
-      </aside>
-
-      <main className={styles.main}>
-        <header className={styles.topbar}>
-          <div>
-            <small>Project 02 / Sprint 02</small>
-            <strong>CNN Feature Map Viewer</strong>
-          </div>
-          <div className={styles.status}>
-            <i className={error ? styles.statusError : ""} />
-            {error ? "Engine needs attention" : busy ? "Reading evidence…" : "Checkpoint connected"}
-            <code>{summary?.model.version ?? "fashion-cnn-v1"}</code>
-          </div>
-        </header>
-
-        <div className={styles.content}>
+    <PlatformShell
+      activeModule="feature-maps"
+      sprint="Sprint 02"
+      title="CNN Feature Map Viewer"
+      status={
+        error
+          ? "Engine needs attention"
+          : busy
+            ? "Reading evidence…"
+            : "Checkpoint connected"
+      }
+      version={summary?.model.version ?? "fashion-cnn-v1"}
+      hasError={Boolean(error)}
+    >
+      <div className={styles.content}>
           {error && (
             <div className={styles.errorBanner} role="alert">
               <span aria-hidden="true">!</span>
@@ -473,8 +438,7 @@ export function CnnFeatureMapViewer() {
             <span>Project 02 · Deep Learning Visual Lab Platform</span>
             <span>Next.js → FastAPI → registered PyTorch checkpoint</span>
           </footer>
-        </div>
-      </main>
-    </div>
+      </div>
+    </PlatformShell>
   );
 }

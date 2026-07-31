@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from autoencoder_latent_space import AutoencoderLatentSpace
 from cnn_feature_map_viewer import CnnFeatureMapViewer
 from neural_network_explainer import NeuralNetworkExplainer
 
+from app.autoencoder.application.service import AutoencoderApplicationService
 from app.cnn.application.service import CnnApplicationService
 from app.core.settings import settings
 from app.neural_network.application.service import NeuralNetworkApplicationService
@@ -15,6 +17,9 @@ neural_network_service = NeuralNetworkApplicationService(
 cnn_service = CnnApplicationService(
     CnnFeatureMapViewer(settings.cnn_artifact_directory)
 )
+autoencoder_service = AutoencoderApplicationService(
+    AutoencoderLatentSpace(settings.autoencoder_artifact_directory)
+)
 
 
 def get_neural_network_service() -> NeuralNetworkApplicationService:
@@ -23,3 +28,7 @@ def get_neural_network_service() -> NeuralNetworkApplicationService:
 
 def get_cnn_service() -> CnnApplicationService:
     return cnn_service
+
+
+def get_autoencoder_service() -> AutoencoderApplicationService:
+    return autoencoder_service

@@ -1,6 +1,6 @@
 {
-  "name": "@deep-learning-lab/neural-network-explainer",
-  "version": "0.2.0",
+  "name": "@deep-learning-lab/visual-lab-platform",
+  "version": "1.0.0",
   "private": true,
   "packageManager": "npm@11.12.1",
   "engines": {

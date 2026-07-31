@@ -12,10 +12,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[4]
 @dataclass(frozen=True, slots=True)
 class Settings:
     title: str = "Deep Learning Visual Lab API"
-    version: str = "0.2.0"
+    version: str = "1.0.0"
     api_prefix: str = "/api/v1"
     artifact_directory: Path = PROJECT_ROOT / "models" / "neural-network"
     cnn_artifact_directory: Path = PROJECT_ROOT / "models" / "cnn"
+    autoencoder_artifact_directory: Path = PROJECT_ROOT / "models" / "autoencoder"
     cors_origins: tuple[str, ...] = tuple(
         origin.strip()
         for origin in os.getenv(

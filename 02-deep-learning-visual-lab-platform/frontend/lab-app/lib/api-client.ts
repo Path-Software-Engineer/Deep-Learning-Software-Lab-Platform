@@ -11,6 +11,13 @@ import type {
   CnnSamples,
   CnnSummary
 } from "@/types/cnn";
+import type {
+  AutoencoderInterpolation,
+  AutoencoderLatentPoints,
+  AutoencoderReconstruction,
+  AutoencoderSamples,
+  AutoencoderSummary
+} from "@/types/autoencoder";
 
 const API_ROOT = (
   process.env.NEXT_PUBLIC_API_ROOT ?? ""
@@ -112,4 +119,27 @@ export const cnnApi = {
     void _;
     return request<CnnFeatureMaps>(`${base}?${query.toString()}`, init);
   }
+};
+
+export const autoencoderApi = {
+  summary: () =>
+    request<AutoencoderSummary>("/api/v1/autoencoder/summary"),
+  samples: () =>
+    request<AutoencoderSamples>("/api/v1/autoencoder/samples"),
+  latentPoints: () =>
+    request<AutoencoderLatentPoints>("/api/v1/autoencoder/latent-points"),
+  reconstruct: (pointId: string) =>
+    request<AutoencoderReconstruction>("/api/v1/autoencoder/reconstruct", {
+      method: "POST",
+      body: JSON.stringify({ point_id: pointId })
+    }),
+  interpolate: (startId: string, endId: string, steps: number) =>
+    request<AutoencoderInterpolation>("/api/v1/autoencoder/interpolate", {
+      method: "POST",
+      body: JSON.stringify({
+        start_id: startId,
+        end_id: endId,
+        steps
+      })
+    })
 };
