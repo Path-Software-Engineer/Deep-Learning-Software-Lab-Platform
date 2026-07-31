@@ -21,6 +21,15 @@ to 12 channels with tensor metadata and raw activation statistics.
 Feature maps are presented as intermediate activations, never as causal
 explanations.
 
+### Sprint 3 — Autoencoder Latent Space Demo
+
+Compare a Fashion-MNIST image with its reconstruction, select one of 100
+registered two-dimensional points, inspect nearest references and decode a
+controlled interpolation between two points.
+
+Latent distance and smooth interpolation describe this checkpoint only; they
+are not universal semantic or causal explanations.
+
 ## Architecture
 
 ```text
@@ -51,6 +60,15 @@ extraction. Training is deterministic and offline.
 This is controlled educational evidence, not a complete Fashion-MNIST benchmark
 or production-readiness claim.
 
+## Sprint 3 evidence
+
+- registered `fashion-autoencoder-2d-v1` checkpoint with 215,923 parameters;
+- deterministic 600/150/150 split over the verified official sprite;
+- held-out MSE `0.033027` and MAE `0.106527` over 150 images;
+- 100 registered 2D reference points, ten per class;
+- reconstruction error, neighbors and interpolation calculated by PyTorch;
+- checksum-verified checkpoint and gallery loaded once by FastAPI.
+
 ## API
 
 | Method | Route | Responsibility |
@@ -64,6 +82,11 @@ or production-readiness claim.
 | `GET` | `/api/v1/cnn/samples` | One registered sample per class |
 | `POST` | `/api/v1/cnn/predict` | Bounded sample or upload prediction |
 | `POST` | `/api/v1/cnn/feature-maps` | Prediction plus selected activation maps |
+| `GET` | `/api/v1/autoencoder/summary` | Autoencoder, dataset and evaluation evidence |
+| `GET` | `/api/v1/autoencoder/samples` | One reconstruction reference per class |
+| `GET` | `/api/v1/autoencoder/latent-points` | Registered 2D gallery and bounds |
+| `POST` | `/api/v1/autoencoder/reconstruct` | Source, reconstruction, error and neighbors |
+| `POST` | `/api/v1/autoencoder/interpolate` | Decoder-backed interpolation sequence |
 
 Interactive documentation is available at `http://127.0.0.1:8000/docs`.
 
@@ -82,15 +105,40 @@ Set-Location ..\..
 .\scripts\start-local.ps1
 ```
 
+For the already-built production frontend:
+
+```powershell
+.\scripts\start-local.ps1 -Production
+```
+
 Open:
 
 - Sprint 1: `http://127.0.0.1:3000`
 - Sprint 2: `http://127.0.0.1:3000/cnn`
+- Sprint 3: `http://127.0.0.1:3000/autoencoder`
+
+Stop only the processes recorded by the launcher:
+
+```powershell
+.\scripts\stop-local.ps1
+```
 
 To reproduce the Sprint 2 artifact:
 
 ```powershell
 .\.venv\Scripts\python.exe .\scripts\train_cnn.py
+```
+
+To reproduce the Sprint 3 artifact:
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\train_autoencoder.py
+```
+
+To run the production-shaped local topology:
+
+```powershell
+docker compose up --build
 ```
 
 ## Quality gate
@@ -100,9 +148,8 @@ To reproduce the Sprint 2 artifact:
 ```
 
 The gate verifies Python dependencies, Ruff, strict mypy, pytest and coverage,
-OpenAPI/client alignment, Sprint 1 regression evidence, Sprint 2 acceptance,
-frontend lint, TypeScript, component tests, production build and Git
-whitespace.
+OpenAPI/client alignment, all three sprint checks, frontend lint, TypeScript,
+component tests, production build, Docker Compose and Git whitespace.
 
-Detailed evidence is in the [Sprint 2 record](docs/sprints/sprint-02-cnn-feature-map-viewer/README.md).
-Sprint 3 remains intentionally unopened.
+Detailed final evidence is in the
+[Sprint 3 record](docs/sprints/sprint-03-autoencoder-latent-space-demo/README.md).

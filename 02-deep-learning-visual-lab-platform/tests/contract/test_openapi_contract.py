@@ -3,7 +3,7 @@ from __future__ import annotations
 from app.main import app
 
 
-def test_openapi_contains_the_published_sprint_one_and_two_business_routes() -> None:
+def test_openapi_contains_all_published_platform_business_routes() -> None:
     paths = app.openapi()["paths"]
     assert {
         "/health",
@@ -15,6 +15,11 @@ def test_openapi_contains_the_published_sprint_one_and_two_business_routes() -> 
         "/api/v1/cnn/samples",
         "/api/v1/cnn/predict",
         "/api/v1/cnn/feature-maps",
+        "/api/v1/autoencoder/summary",
+        "/api/v1/autoencoder/samples",
+        "/api/v1/autoencoder/reconstruct",
+        "/api/v1/autoencoder/latent-points",
+        "/api/v1/autoencoder/interpolate",
     }.issubset(paths)
     forbidden = {
         "/api/v1/neural-network/catalog",
@@ -40,3 +45,18 @@ def test_feature_map_response_contract_references_typed_resources() -> None:
     error_schema = operation["responses"]["422"]["content"]["application/json"]["schema"]
     assert success_schema["$ref"].endswith("/CnnFeatureMapsResource")
     assert error_schema["$ref"].endswith("/ErrorEnvelope")
+
+
+def test_autoencoder_write_contracts_reference_typed_resources() -> None:
+    paths = app.openapi()["paths"]
+    reconstruction = paths["/api/v1/autoencoder/reconstruct"]["post"]
+    interpolation = paths["/api/v1/autoencoder/interpolate"]["post"]
+
+    assert reconstruction["requestBody"]["required"] is True
+    assert reconstruction["responses"]["200"]["content"]["application/json"][
+        "schema"
+    ]["$ref"].endswith("/AutoencoderReconstructionResource")
+    assert interpolation["requestBody"]["required"] is True
+    assert interpolation["responses"]["200"]["content"]["application/json"][
+        "schema"
+    ]["$ref"].endswith("/AutoencoderInterpolationResource")

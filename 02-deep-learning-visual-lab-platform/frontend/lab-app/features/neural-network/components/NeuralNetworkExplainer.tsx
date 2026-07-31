@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
+import { PlatformShell } from "@/components/platform/PlatformShell";
 import { LabApiError, neuralNetworkApi } from "@/lib/api-client";
 import type {
   ForwardTrace,
@@ -110,44 +110,21 @@ export function NeuralNetworkExplainer() {
   const busy = loading || running;
 
   return (
-    <div className={styles.shell}>
-      <aside className={styles.sidebar}>
-        <a className={styles.brand} href="#top" aria-label="Axon home">
-          <span className={styles.brandMark} aria-hidden="true"><i /><i /><i /></span>
-          <span><strong>Axon</strong><small>Neural learning lab</small></span>
-        </a>
-        <nav aria-label="Workspace sections">
-          <a className={styles.activeNav} href="#experiment"><span>01</span>Experiment</a>
-          <a href="#network"><span>02</span>Signal trace</a>
-          <a href="#learning"><span>03</span>Learning evidence</a>
-          <a href="#limits"><span>04</span>Boundaries</a>
-          <Link href="/cnn"><span>05</span>CNN feature maps</Link>
-        </nav>
-        <div className={styles.engineCard}>
-          <p>OFFICIAL ENGINE</p>
-          <strong>PyTorch · checkpoint</strong>
-          <span><i /> read-only inference</span>
-        </div>
-        <div className={styles.profile}>
-          <span>JL</span>
-          <div><strong>Jean Loa</strong><small>Software engineering path</small></div>
-        </div>
-      </aside>
-
-      <main id="top" className={styles.main}>
-        <header className={styles.topbar}>
-          <div>
-            <small>Project 02 / Sprint 01</small>
-            <strong>Neural Network Explainer</strong>
-          </div>
-          <div className={styles.status}>
-            <i className={error ? styles.statusError : ""} />
-            {error ? "Engine unavailable" : busy ? "Reading evidence…" : "Checkpoint connected"}
-            <code>{summary?.model_version ?? "xor-mlp-v1"}</code>
-          </div>
-        </header>
-
-        <div className={styles.content}>
+    <PlatformShell
+      activeModule="neural-trace"
+      sprint="Sprint 01"
+      title="Neural Network Explainer"
+      status={
+        error
+          ? "Engine unavailable"
+          : busy
+            ? "Reading evidence…"
+            : "Checkpoint connected"
+      }
+      version={summary?.model_version ?? "xor-mlp-v1"}
+      hasError={Boolean(error)}
+    >
+      <div className={styles.content}>
           {error && (
             <div className={styles.errorBanner} role="alert">
               <span>!</span>
@@ -296,8 +273,7 @@ export function NeuralNetworkExplainer() {
             <span>Project 02 · Deep Learning Visual Lab Platform</span>
             <span>Next.js → FastAPI → registered PyTorch artifact</span>
           </footer>
-        </div>
-      </main>
-    </div>
+      </div>
+    </PlatformShell>
   );
 }

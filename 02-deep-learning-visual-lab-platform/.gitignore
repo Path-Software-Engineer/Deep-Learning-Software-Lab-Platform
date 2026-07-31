@@ -10,6 +10,7 @@ __pycache__/
 frontend/node_modules/
 frontend/lab-app/node_modules/
 frontend/lab-app/.next/
+frontend/lab-app/tsconfig.tsbuildinfo
 frontend/lab-app/.npm-cache/
 frontend/lab-app/coverage/
 frontend/lab-app/test-results/
@@ -24,6 +25,9 @@ htmlcov/
 .env
 .env.local
 .runtime/
+.quality-tmp/
+.pytest-runs/
+.pytest-tmp/
 data/raw/*
 !data/raw/fashion-mnist-official/
 data/raw/fashion-mnist-official/*

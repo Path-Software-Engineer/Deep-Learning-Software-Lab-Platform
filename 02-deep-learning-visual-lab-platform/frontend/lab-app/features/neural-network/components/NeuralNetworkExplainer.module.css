@@ -248,9 +248,7 @@
 }
 
 .content {
-  width: min(1220px, calc(100% - 72px));
-  margin: 0 auto;
-  padding: 58px 0 36px;
+  min-width: 0;
 }
 
 .errorBanner {
@@ -1072,7 +1070,6 @@
 @media (max-width: 1100px) {
   .sidebar { width: 210px; }
   .main { margin-left: 210px; }
-  .content { width: min(100% - 42px, 1000px); }
   .hero { grid-template-columns: 1fr; }
   .heroVisual { position: absolute; right: -20px; opacity: .38; }
   .controlPanel { grid-template-columns: 1fr; gap: 20px; }
@@ -1120,7 +1117,6 @@
   .main { margin-left: 0; }
   .topbar { position: static; min-height: 62px; padding: 0 18px; }
   .status code { display: none; }
-  .content { width: calc(100% - 28px); padding-top: 30px; }
   .hero { min-height: 340px; }
   .hero h1 { font-size: clamp(38px, 11vw, 58px); }
   .heroVisual { right: -120px; }

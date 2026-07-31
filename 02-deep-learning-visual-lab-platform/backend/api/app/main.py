@@ -1,10 +1,14 @@
-"""FastAPI composition root for the first two platform increments."""
+"""FastAPI composition root for the completed three-module platform."""
 
 from __future__ import annotations
 
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
+from autoencoder_latent_space import (
+    AutoencoderArtifactIntegrityError,
+    AutoencoderRequestError,
+)
 from cnn_feature_map_viewer import CnnArtifactIntegrityError, CnnRequestError
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -12,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from neural_network_explainer import ArtifactIntegrityError
 
+from app.autoencoder.interfaces.router import router as autoencoder_router
 from app.cnn.interfaces.router import router as cnn_router
 from app.common.resources import (
     ErrorEnvelope,
@@ -21,7 +26,11 @@ from app.common.resources import (
     validation_details,
 )
 from app.core.settings import settings
-from app.main_dependencies import cnn_service, neural_network_service
+from app.main_dependencies import (
+    autoencoder_service,
+    cnn_service,
+    neural_network_service,
+)
 from app.neural_network.interfaces.router import router as neural_network_router
 from app.platform.interfaces.router import router as platform_router
 
@@ -30,6 +39,7 @@ from app.platform.interfaces.router import router as platform_router
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     neural_network_service.get_summary()
     cnn_service.get_summary()
+    autoencoder_service.get_summary()
     yield
 
 
@@ -52,6 +62,7 @@ app.add_middleware(
 app.include_router(platform_router, prefix=settings.api_prefix)
 app.include_router(neural_network_router, prefix=settings.api_prefix)
 app.include_router(cnn_router, prefix=settings.api_prefix)
+app.include_router(autoencoder_router, prefix=settings.api_prefix)
 
 
 @app.exception_handler(RequestValidationError)
@@ -86,6 +97,21 @@ async def cnn_request_error(_: Request, exc: CnnRequestError) -> JSONResponse:
     return JSONResponse(status_code=422, content=envelope.model_dump())
 
 
+@app.exception_handler(AutoencoderRequestError)
+async def autoencoder_request_error(
+    _: Request,
+    exc: AutoencoderRequestError,
+) -> JSONResponse:
+    envelope = ErrorEnvelope(
+        error=ErrorResource(
+            code=exc.code,
+            message=str(exc),
+            details=[ErrorItemResource(field=exc.field, message=str(exc))],
+        )
+    )
+    return JSONResponse(status_code=422, content=envelope.model_dump())
+
+
 @app.exception_handler(ArtifactIntegrityError)
 async def artifact_error(_: Request, exc: ArtifactIntegrityError) -> JSONResponse:
     envelope = ErrorEnvelope(
@@ -105,13 +131,31 @@ async def cnn_artifact_error(
     return JSONResponse(status_code=503, content=envelope.model_dump())
 
 
+@app.exception_handler(AutoencoderArtifactIntegrityError)
+async def autoencoder_artifact_error(
+    _: Request,
+    exc: AutoencoderArtifactIntegrityError,
+) -> JSONResponse:
+    envelope = ErrorEnvelope(
+        error=ErrorResource(
+            code="autoencoder_artifact_unavailable",
+            message=str(exc),
+        )
+    )
+    return JSONResponse(status_code=503, content=envelope.model_dump())
+
+
 @app.get("/health", response_model=HealthResource, tags=["Health"])
 def health() -> HealthResource:
     summary = neural_network_service.get_summary()
     cnn_summary = cnn_service.get_summary()
+    autoencoder_summary = autoencoder_service.get_summary()
     return HealthResource(
         status="ok",
         service="deep-learning-visual-lab-api",
         version=settings.version,
-        artifact=f"{summary.model_version}|{cnn_summary.model.version}",
+        artifact=(
+            f"{summary.model_version}|{cnn_summary.model.version}|"
+            f"{autoencoder_summary.model.version}"
+        ),
     )

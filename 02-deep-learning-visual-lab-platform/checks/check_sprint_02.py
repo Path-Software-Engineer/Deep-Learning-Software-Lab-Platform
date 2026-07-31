@@ -39,9 +39,6 @@ def main() -> None:
     if missing:
         raise SystemExit(f"Missing Sprint 2 evidence: {', '.join(missing)}")
 
-    if (PROJECT_ROOT / "ai-services" / "autoencoder-latent-space").exists():
-        raise SystemExit("Sprint 3 implementation was opened before authorization.")
-
     source_path = (
         PROJECT_ROOT
         / "data"
@@ -92,6 +89,7 @@ def main() -> None:
     print("Dataset: official 900-image Fashion-MNIST sprite with verified SHA-256")
     print("Evaluation: 122/150 correct | 81.33% held-out accuracy")
     print("Boundary: Next.js -> FastAPI -> controlled PyTorch hooks")
+    print("Regression: Sprint 3 may coexist without changing Sprint 2 evidence")
 
 
 if __name__ == "__main__":

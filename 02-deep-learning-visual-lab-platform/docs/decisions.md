@@ -94,3 +94,42 @@ intensity is comparable across channels.
 
 **Reason:** Sprint 2 has no mutable product state, user accounts or durable
 runtime workflow that would justify persistence infrastructure.
+
+## ADR-013 — Native two-dimensional bottleneck
+
+**Decision:** The registered autoencoder learns exactly two latent values.
+
+**Reason:** The product can display the actual representation without applying
+a second projection. The accepted tradeoff is lower reconstruction capacity.
+
+## ADR-014 — Server-owned latent operations
+
+**Decision:** Reconstruction error, neighbor ranking and interpolation decoding
+remain in the PyTorch bounded context.
+
+**Reason:** Every visual result stays tied to the checksum-verified checkpoint;
+React manages interaction without duplicating neural mathematics.
+
+## ADR-015 — Reuse the verified official source
+
+**Decision:** Sprint 3 reuses the Sprint 2 Fashion-MNIST sprite and split.
+
+**Reason:** The complete project remains self-contained and its evidence stays
+comparable. The limited 900-image scope remains explicit.
+
+## ADR-016 — Two-container final local topology
+
+**Decision:** Docker Compose runs a non-root standalone Next.js image and a
+non-root FastAPI/PyTorch image with health checks.
+
+**Reason:** The topology preserves frontend/backend separation and production
+build behavior without adding a database or orchestrator unsupported by product
+requirements.
+
+## ADR-017 — No database in the final platform
+
+**Decision:** Model and dataset evidence remains immutable and file-based.
+
+**Reason:** Axon has no authentication, mutable experiment authoring, saved
+workspace or durable user state. Persistence would add operational complexity
+without serving a current use case.

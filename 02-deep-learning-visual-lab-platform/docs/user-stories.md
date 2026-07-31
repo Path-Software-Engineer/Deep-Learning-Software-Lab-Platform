@@ -134,3 +134,75 @@ interpret feature maps as causal explanations.
 
 **Evidence:** `config.py`, `docs/limitations.md`,
 `CnnFeatureMapViewer.tsx`, Sprint 2 repository check.
+
+## Sprint 3 — Autoencoder Latent Space Demo
+
+### US-P2-S3-001 — Compare source and reconstruction
+
+**Story:** As a student, I want to compare a registered Fashion-MNIST image
+with the checkpoint reconstruction so that I can observe what survives a
+two-value bottleneck.
+
+**Acceptance criteria:**
+
+- one representative held-out image is available for each source class;
+- the original and reconstruction belong to the same registered point;
+- MSE and MAE are calculated by the service and shown beside the images;
+- the model version and held-out evaluation scope remain visible.
+
+**Status:** Completed.
+
+**Evidence:** `service.py`, `/api/v1/autoencoder/reconstruct`,
+`AutoencoderLatentSpaceDemo.tsx`, service/API/component tests.
+
+### US-P2-S3-002 — Explore registered latent points
+
+**Story:** As a student, I want to select a point in the actual 2D bottleneck
+and inspect its source and neighbors so that I can explore the registered
+representation.
+
+**Acceptance criteria:**
+
+- 100 registered points include two coordinates, reference label and image;
+- point selection is possible through pointer and keyboard-accessible controls;
+- five neighbors and their distances come from the neural service;
+- reference labels are not presented as discovered semantic truth.
+
+**Status:** Completed.
+
+**Evidence:** `latent-gallery.json`, `/api/v1/autoencoder/latent-points`,
+`LatentScatterPlot.tsx`, reconstruction resource and tests.
+
+### US-P2-S3-003 — Decode an interpolation
+
+**Story:** As a student, I want to choose two registered points and a bounded
+number of steps so that I can observe the decoder along that segment.
+
+**Acceptance criteria:**
+
+- endpoints must be different registered IDs;
+- the user may request 3–12 steps;
+- every coordinate and image is produced by the registered PyTorch service;
+- the sequence includes both endpoints and ordered alpha values.
+
+**Status:** Completed.
+
+**Evidence:** `/api/v1/autoencoder/interpolate`,
+`latent-interpolation-lab/README.md`, frontend controls and cross-layer tests.
+
+### US-P2-S3-004 — Understand the evidence boundary
+
+**Story:** As a user, I want visible limitations so that I do not confuse
+distance or smooth visual transitions with model understanding.
+
+**Acceptance criteria:**
+
+- the 2D capacity tradeoff is explicit;
+- latent distance is scoped to the registered checkpoint;
+- interpolation, dataset and production-readiness limitations are visible;
+- failed API requests never fall back to invented evidence.
+
+**Status:** Completed.
+
+**Evidence:** `config.py`, `docs/limitations.md`, the module boundary panel and
+frontend failure-state tests.

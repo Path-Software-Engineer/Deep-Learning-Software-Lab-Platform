@@ -22,6 +22,15 @@ sys.path.insert(
     str(
         PROJECT_ROOT
         / "ai-services"
+        / "autoencoder-latent-space"
+        / "src"
+    ),
+)
+sys.path.insert(
+    0,
+    str(
+        PROJECT_ROOT
+        / "ai-services"
         / "cnn-feature-map-viewer"
         / "src"
     ),

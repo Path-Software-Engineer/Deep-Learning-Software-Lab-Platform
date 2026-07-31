@@ -361,3 +361,235 @@ US-P2-S2-001, US-P2-S2-002, US-P2-S2-003, US-P2-S2-004.
 | TS-P2-S2-005 | US-P2-S2-001, US-P2-S2-002, US-P2-S2-003 | FastAPI and OpenAPI |
 | TS-P2-S2-006 | all Sprint 2 stories | Next.js viewer and tests |
 | TS-P2-S2-007 | all Sprint 2 stories | root quality gate |
+
+## Sprint 3 — Autoencoder Latent Space Demo
+
+### TS-P2-S3-001 — Reproducible autoencoder evidence
+
+### Need
+
+Train and register a compact image autoencoder whose native representation is
+directly observable in two dimensions.
+
+### Acceptance criteria
+
+- the verified Fashion-MNIST source and deterministic split are reused;
+- seed, architecture, optimizer, loss and training duration are recorded;
+- validation and held-out MSE/MAE are generated reproducibly;
+- checkpoint, manifest and training history agree.
+
+### Status
+
+Completed.
+
+### Evidence
+
+`dataset.py`, `model.py`, `train_autoencoder.py`, checkpoint, manifest,
+training history and model tests.
+
+### Related User Stories
+
+US-P2-S3-001, US-P2-S3-002, US-P2-S3-004.
+
+### TS-P2-S3-002 — Integrity-checked representation bundle
+
+### Need
+
+Reject stale, corrupted or mismatched checkpoint and gallery evidence.
+
+### Acceptance criteria
+
+- checkpoint and gallery byte content are SHA-256 verified;
+- model, dataset, split and configuration versions must agree;
+- the registered gallery contains 100 valid unique reference points;
+- loading uses inference-safe checkpoint deserialization.
+
+### Status
+
+Completed.
+
+### Evidence
+
+`artifacts.py`, `manifest.json`, `latent-gallery.json`,
+`test_artifacts.py`.
+
+### Related User Stories
+
+US-P2-S3-001, US-P2-S3-002, US-P2-S3-003.
+
+### TS-P2-S3-003 — Server-owned reconstruction and neighborhood
+
+### Need
+
+Expose one auditable service boundary for encoding, decoding, point errors and
+nearest registered references.
+
+### Acceptance criteria
+
+- source and reconstruction IDs cannot drift;
+- MSE and MAE are calculated on the original `[0, 1]` tensor scale;
+- Euclidean distance is calculated against the registered gallery;
+- unknown points fail with a stable error code.
+
+### Status
+
+Completed.
+
+### Evidence
+
+`service.py`, reconstruction resource, service/API/integration tests.
+
+### Related User Stories
+
+US-P2-S3-001, US-P2-S3-002, US-P2-S3-004.
+
+### TS-P2-S3-004 — Decoder-backed interpolation
+
+### Need
+
+Generate a bounded visual sequence from two registered coordinates without
+moving decoder logic into the client.
+
+### Acceptance criteria
+
+- endpoint IDs exist and differ;
+- step count is restricted to 3–12;
+- coordinates use ordered linear alpha values including both endpoints;
+- every image comes from the registered decoder.
+
+### Status
+
+Completed.
+
+### Evidence
+
+`service.py`, interpolate FastAPI operation,
+`latent-interpolation-lab/README.md`, tests.
+
+### Related User Stories
+
+US-P2-S3-003, US-P2-S3-004.
+
+### TS-P2-S3-005 — Versioned autoencoder FastAPI contract
+
+### Need
+
+Expose summary, samples, points, reconstruction and interpolation through strict
+resources and one shared error model.
+
+### Acceptance criteria
+
+- all five operations appear in OpenAPI;
+- request bodies reject unknown or invalid fields;
+- application and interface layers remain thin and bounded;
+- the TypeScript client and OpenAPI paths remain aligned.
+
+### Status
+
+Completed.
+
+### Evidence
+
+Autoencoder router/resources/application service, `openapi.json`, backend and
+contract tests.
+
+### Related User Stories
+
+US-P2-S3-001, US-P2-S3-002, US-P2-S3-003.
+
+### TS-P2-S3-006 — Accessible Next.js latent workspace
+
+### Need
+
+Present reconstruction, points, neighbors and interpolation without latent or
+neural recomputation in React.
+
+### Acceptance criteria
+
+- all three modules share stable navigation;
+- point and sample controls are keyboard operable;
+- loading, connected, error and Retry states exist;
+- responsive and reduced-motion behavior is defined;
+- component and E2E tests consume API-shaped evidence.
+
+### Status
+
+Completed.
+
+### Evidence
+
+`AutoencoderLatentSpaceDemo.tsx`, `LatentScatterPlot.tsx`, CSS Module,
+frontend tests and `.stitch/DESIGN.md`.
+
+### Related User Stories
+
+US-P2-S3-001, US-P2-S3-002, US-P2-S3-003, US-P2-S3-004.
+
+### TS-P2-S3-007 — Production-shaped local packaging
+
+### Need
+
+Run the final two-process platform reproducibly without introducing unsupported
+infrastructure.
+
+### Acceptance criteria
+
+- FastAPI/PyTorch and standalone Next.js use multi-stage or slim images;
+- both containers run as non-root users and expose health checks;
+- the web service waits for API health;
+- immutable model evidence is included; no database is required.
+
+### Status
+
+Completed.
+
+### Evidence
+
+Both Dockerfiles, `.dockerignore`, `docker-compose.yml` and
+`deployment/docker/README.md`.
+
+### Related User Stories
+
+US-P2-S3-001, US-P2-S3-002, US-P2-S3-003.
+
+### TS-P2-S3-008 — Final cross-sprint release gate
+
+### Need
+
+Close the platform without regressing the prior bounded contexts or claiming
+unexecuted evidence.
+
+### Acceptance criteria
+
+- lint, strict types, tests, coverage and production build pass;
+- OpenAPI and frontend contracts align;
+- all three sprint checks pass in one gate;
+- Docker Compose validates and the live topology is smoke-tested separately;
+- documentation, stories and limitations are traceable.
+
+### Status
+
+Completed. The local HTTP smoke is recorded; browser captures and Docker image
+build remain explicit environment-level limitations.
+
+### Evidence
+
+`run-quality-gate.ps1`, three sprint checks, contract/integration suites and
+Sprint 3 record.
+
+### Related User Stories
+
+US-P2-S3-001, US-P2-S3-002, US-P2-S3-003, US-P2-S3-004.
+
+## Sprint 3 Traceability
+
+| Technical Story | User Stories | Primary evidence |
+|---|---|---|
+| TS-P2-S3-001 | US-P2-S3-001, US-P2-S3-002, US-P2-S3-004 | training pipeline and metrics |
+| TS-P2-S3-002 | US-P2-S3-001, US-P2-S3-002, US-P2-S3-003 | artifact loader and gallery |
+| TS-P2-S3-003 | US-P2-S3-001, US-P2-S3-002, US-P2-S3-004 | reconstruction service |
+| TS-P2-S3-004 | US-P2-S3-003, US-P2-S3-004 | interpolation service and lab |
+| TS-P2-S3-005 | US-P2-S3-001, US-P2-S3-002, US-P2-S3-003 | FastAPI and OpenAPI |
+| TS-P2-S3-006 | all Sprint 3 stories | Next.js workspace and tests |
+| TS-P2-S3-007 | US-P2-S3-001, US-P2-S3-002, US-P2-S3-003 | Docker topology |
+| TS-P2-S3-008 | all Sprint 3 stories | final quality gate |

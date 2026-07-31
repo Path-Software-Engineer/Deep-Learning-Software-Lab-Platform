@@ -7,6 +7,7 @@ const apiProxyTarget = (
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  output: "standalone",
   async rewrites() {
     return [
       {

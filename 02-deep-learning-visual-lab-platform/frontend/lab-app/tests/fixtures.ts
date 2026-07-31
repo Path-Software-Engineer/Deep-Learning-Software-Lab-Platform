@@ -8,6 +8,13 @@ import type {
   CnnSamples,
   CnnSummary
 } from "@/types/cnn";
+import type {
+  AutoencoderInterpolation,
+  AutoencoderLatentPoints,
+  AutoencoderReconstruction,
+  AutoencoderSamples,
+  AutoencoderSummary
+} from "@/types/autoencoder";
 
 export const summaryFixture: NeuralNetworkSummary = {
   module_id: "neural-network-explainer",
@@ -93,7 +100,7 @@ export const historyFixture: TrainingHistory = {
   limitations: summaryFixture.limitations
 };
 
-const imageDataUri =
+export const imageDataUri =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
 
 export const cnnSummaryFixture: CnnSummary = {
@@ -237,4 +244,122 @@ export const cnnFeatureMapsFixture: CnnFeatureMaps = {
     comparison_rule:
       "Compare spatial patterns only. Each channel uses an independent display scale."
   }
+};
+
+export const autoencoderSummaryFixture: AutoencoderSummary = {
+  schema_version: "1.0",
+  module: "autoencoder-latent-space-demo",
+  status: "available",
+  model: {
+    name: "Fashion convolutional autoencoder",
+    version: "fashion-autoencoder-2d-v1",
+    framework: "PyTorch 2.9.0+cpu",
+    architecture: "Convolutional encoder → Latent(2) → convolutional decoder",
+    parameter_count: 215923,
+    input_shape: [1, 28, 28],
+    latent_shape: [2],
+    output_shape: [1, 28, 28],
+    dataset: "fashion-mnist-official-sprite-900-v1",
+    checkpoint: {
+      file: "fashion-autoencoder-2d-v1.pt",
+      sha256: "c".repeat(64),
+      bytes: 875000
+    }
+  },
+  dataset: cnnSummaryFixture.dataset,
+  preprocessing: {
+    color_mode: "grayscale",
+    image_size: [28, 28],
+    value_range: [0, 1],
+    normalization: "pixel-divided-by-255",
+    reconstruction_output: "sigmoid-bounded-0-to-1"
+  },
+  evaluation: {
+    samples: 150,
+    mean_squared_error: 0.033027,
+    mean_absolute_error: 0.106527,
+    pixels_evaluated: 117600
+  },
+  latent_contract: {
+    dimensions: 2,
+    distance: "euclidean-in-registered-2d-bottleneck",
+    bounds: { x: [-4, 4], y: [-4, 4] },
+    reference_points: 100,
+    neighbors_returned: 5,
+    interpolation: "linear-coordinate-segment-decoded-by-registered-model",
+    minimum_steps: 3,
+    maximum_steps: 12
+  },
+  limitations: [
+    "The two-dimensional bottleneck sacrifices reconstruction capacity.",
+    "Latent proximity does not guarantee universal semantic similarity.",
+    "A smooth interpolation does not demonstrate understanding or causality.",
+    "Fashion-MNIST is an educational benchmark."
+  ]
+};
+
+const autoencoderPoints = Array.from({ length: 10 }, (_, index) => ({
+  id: `latent-${String(index).padStart(2, "0")}-00`,
+  source_index: index * 90,
+  label_index: index,
+  label: cnnSummaryFixture.dataset.classes[index],
+  coordinate: [index - 4.5, (index % 3) - 1] as [number, number],
+  reconstruction_error: 0.02 + index / 1000,
+  image_data_uri: imageDataUri
+}));
+
+export const autoencoderSamplesFixture: AutoencoderSamples = {
+  schema_version: "1.0",
+  module: "autoencoder-latent-space-demo",
+  samples: autoencoderPoints
+};
+
+export const autoencoderLatentPointsFixture: AutoencoderLatentPoints = {
+  schema_version: "1.0",
+  module: "autoencoder-latent-space-demo",
+  model_version: "fashion-autoencoder-2d-v1",
+  bounds: { x: [-5, 5], y: [-3, 3] },
+  points: autoencoderPoints,
+  interpretation:
+    "Coordinates and distances belong only to this registered two-dimensional bottleneck."
+};
+
+export const autoencoderReconstructionFixture: AutoencoderReconstruction = {
+  schema_version: "1.0",
+  module: "autoencoder-latent-space-demo",
+  model_version: "fashion-autoencoder-2d-v1",
+  sample: autoencoderPoints[8],
+  original: {
+    tensor_shape: [1, 1, 28, 28],
+    image_data_uri: imageDataUri
+  },
+  reconstruction: {
+    tensor_shape: [1, 1, 28, 28],
+    image_data_uri: imageDataUri,
+    mean_squared_error: 0.0312,
+    mean_absolute_error: 0.1014
+  },
+  latent_coordinate: autoencoderPoints[8].coordinate,
+  neighbors: autoencoderPoints.slice(0, 5).map((point, index) => ({
+    ...point,
+    distance: 0.2 + index * 0.1
+  })),
+  interpretation:
+    "The reconstruction and error were produced by the registered encoder-decoder."
+};
+
+export const autoencoderInterpolationFixture: AutoencoderInterpolation = {
+  schema_version: "1.0",
+  module: "autoencoder-latent-space-demo",
+  model_version: "fashion-autoencoder-2d-v1",
+  start: autoencoderPoints[8],
+  end: autoencoderPoints[9],
+  steps: Array.from({ length: 7 }, (_, index) => ({
+    index,
+    alpha: index / 6,
+    coordinate: [3.5 + index / 6, 1 - index / 6] as [number, number],
+    image_data_uri: imageDataUri
+  })),
+  interpretation:
+    "Every frame is decoded from a linear segment in this model's 2D bottleneck."
 };

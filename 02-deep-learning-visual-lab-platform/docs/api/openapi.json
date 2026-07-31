@@ -3,7 +3,7 @@
   "info": {
     "title": "Deep Learning Visual Lab API",
     "description": "Typed read and forward-pass API for the educational Deep Learning Visual Lab. Training is intentionally offline.",
-    "version": "0.2.0"
+    "version": "1.0.0"
   },
   "paths": {
     "/api/v1/platform/modules": {
@@ -313,6 +313,151 @@
         }
       }
     },
+    "/api/v1/autoencoder/summary": {
+      "get": {
+        "tags": [
+          "Autoencoder Latent Space Demo"
+        ],
+        "summary": "Get Summary",
+        "operationId": "get_summary_api_v1_autoencoder_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoencoderSummaryResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/autoencoder/samples": {
+      "get": {
+        "tags": [
+          "Autoencoder Latent Space Demo"
+        ],
+        "summary": "Get Samples",
+        "operationId": "get_samples_api_v1_autoencoder_samples_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoencoderSamplesResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/autoencoder/latent-points": {
+      "get": {
+        "tags": [
+          "Autoencoder Latent Space Demo"
+        ],
+        "summary": "Get Latent Points",
+        "operationId": "get_latent_points_api_v1_autoencoder_latent_points_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoencoderLatentPointsResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/autoencoder/reconstruct": {
+      "post": {
+        "tags": [
+          "Autoencoder Latent Space Demo"
+        ],
+        "summary": "Reconstruct",
+        "operationId": "reconstruct_api_v1_autoencoder_reconstruct_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoencoderReconstructRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoencoderReconstructionResource"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/autoencoder/interpolate": {
+      "post": {
+        "tags": [
+          "Autoencoder Latent Space Demo"
+        ],
+        "summary": "Interpolate",
+        "operationId": "interpolate_api_v1_autoencoder_interpolate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoencoderInterpolationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoencoderInterpolationResource"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -379,6 +524,796 @@
           "parameter_count"
         ],
         "title": "ArchitectureResource"
+      },
+      "AutoencoderCheckpointResource": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "title": "File"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Sha256"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Bytes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "file",
+          "sha256",
+          "bytes"
+        ],
+        "title": "AutoencoderCheckpointResource"
+      },
+      "AutoencoderDatasetResource": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Source Sha256"
+          },
+          "classes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 10,
+            "title": "Classes"
+          },
+          "available_samples": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Available Samples"
+          },
+          "image_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Image Shape"
+          },
+          "split": {
+            "$ref": "#/components/schemas/AutoencoderDatasetSplitResource"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "version",
+          "source",
+          "source_sha256",
+          "classes",
+          "available_samples",
+          "image_shape",
+          "split"
+        ],
+        "title": "AutoencoderDatasetResource"
+      },
+      "AutoencoderDatasetSplitResource": {
+        "properties": {
+          "training": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Training"
+          },
+          "validation": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Validation"
+          },
+          "test": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Test"
+          },
+          "stratified": {
+            "type": "boolean",
+            "title": "Stratified"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "training",
+          "validation",
+          "test",
+          "stratified"
+        ],
+        "title": "AutoencoderDatasetSplitResource"
+      },
+      "AutoencoderEvaluationResource": {
+        "properties": {
+          "samples": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Samples"
+          },
+          "mean_squared_error": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Mean Squared Error"
+          },
+          "mean_absolute_error": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Mean Absolute Error"
+          },
+          "pixels_evaluated": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Pixels Evaluated"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "samples",
+          "mean_squared_error",
+          "mean_absolute_error",
+          "pixels_evaluated"
+        ],
+        "title": "AutoencoderEvaluationResource"
+      },
+      "AutoencoderImageResource": {
+        "properties": {
+          "tensor_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Tensor Shape"
+          },
+          "image_data_uri": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,",
+            "title": "Image Data Uri"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tensor_shape",
+          "image_data_uri"
+        ],
+        "title": "AutoencoderImageResource"
+      },
+      "AutoencoderInterpolationRequest": {
+        "properties": {
+          "start_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Start Id"
+          },
+          "end_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "End Id"
+          },
+          "steps": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 3.0,
+            "title": "Steps"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "start_id",
+          "end_id",
+          "steps"
+        ],
+        "title": "AutoencoderInterpolationRequest"
+      },
+      "AutoencoderInterpolationResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "start": {
+            "$ref": "#/components/schemas/AutoencoderSampleResource"
+          },
+          "end": {
+            "$ref": "#/components/schemas/AutoencoderSampleResource"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/AutoencoderInterpolationStepResource"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 3,
+            "title": "Steps"
+          },
+          "interpretation": {
+            "type": "string",
+            "title": "Interpretation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "model_version",
+          "start",
+          "end",
+          "steps",
+          "interpretation"
+        ],
+        "title": "AutoencoderInterpolationResource"
+      },
+      "AutoencoderInterpolationStepResource": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Index"
+          },
+          "alpha": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Alpha"
+          },
+          "coordinate": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Coordinate"
+          },
+          "image_data_uri": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,",
+            "title": "Image Data Uri"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "index",
+          "alpha",
+          "coordinate",
+          "image_data_uri"
+        ],
+        "title": "AutoencoderInterpolationStepResource"
+      },
+      "AutoencoderLatentPointsResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "bounds": {
+            "$ref": "#/components/schemas/LatentBoundsResource"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/AutoencoderSampleResource"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Points"
+          },
+          "interpretation": {
+            "type": "string",
+            "title": "Interpretation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "model_version",
+          "bounds",
+          "points",
+          "interpretation"
+        ],
+        "title": "AutoencoderLatentPointsResource"
+      },
+      "AutoencoderModelResource": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "framework": {
+            "type": "string",
+            "title": "Framework"
+          },
+          "architecture": {
+            "type": "string",
+            "title": "Architecture"
+          },
+          "parameter_count": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Parameter Count"
+          },
+          "input_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Input Shape"
+          },
+          "latent_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 1,
+            "minItems": 1,
+            "title": "Latent Shape"
+          },
+          "output_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Output Shape"
+          },
+          "dataset": {
+            "type": "string",
+            "title": "Dataset"
+          },
+          "checkpoint": {
+            "$ref": "#/components/schemas/AutoencoderCheckpointResource"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "version",
+          "framework",
+          "architecture",
+          "parameter_count",
+          "input_shape",
+          "latent_shape",
+          "output_shape",
+          "dataset",
+          "checkpoint"
+        ],
+        "title": "AutoencoderModelResource"
+      },
+      "AutoencoderNeighborResource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "source_index": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Source Index"
+          },
+          "label_index": {
+            "type": "integer",
+            "maximum": 9.0,
+            "minimum": 0.0,
+            "title": "Label Index"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "coordinate": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Coordinate"
+          },
+          "reconstruction_error": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Reconstruction Error"
+          },
+          "image_data_uri": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,",
+            "title": "Image Data Uri"
+          },
+          "distance": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Distance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "source_index",
+          "label_index",
+          "label",
+          "coordinate",
+          "reconstruction_error",
+          "image_data_uri",
+          "distance"
+        ],
+        "title": "AutoencoderNeighborResource"
+      },
+      "AutoencoderPreprocessingResource": {
+        "properties": {
+          "color_mode": {
+            "type": "string",
+            "title": "Color Mode"
+          },
+          "image_size": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              }
+            ],
+            "title": "Image Size"
+          },
+          "value_range": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              }
+            ],
+            "title": "Value Range"
+          },
+          "normalization": {
+            "type": "string",
+            "title": "Normalization"
+          },
+          "reconstruction_output": {
+            "type": "string",
+            "title": "Reconstruction Output"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "color_mode",
+          "image_size",
+          "value_range",
+          "normalization",
+          "reconstruction_output"
+        ],
+        "title": "AutoencoderPreprocessingResource"
+      },
+      "AutoencoderReconstructRequest": {
+        "properties": {
+          "point_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Point Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "point_id"
+        ],
+        "title": "AutoencoderReconstructRequest"
+      },
+      "AutoencoderReconstructedImageResource": {
+        "properties": {
+          "tensor_shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Tensor Shape"
+          },
+          "image_data_uri": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,",
+            "title": "Image Data Uri"
+          },
+          "mean_squared_error": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Mean Squared Error"
+          },
+          "mean_absolute_error": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Mean Absolute Error"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tensor_shape",
+          "image_data_uri",
+          "mean_squared_error",
+          "mean_absolute_error"
+        ],
+        "title": "AutoencoderReconstructedImageResource"
+      },
+      "AutoencoderReconstructionResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "sample": {
+            "$ref": "#/components/schemas/AutoencoderSampleResource"
+          },
+          "original": {
+            "$ref": "#/components/schemas/AutoencoderImageResource"
+          },
+          "reconstruction": {
+            "$ref": "#/components/schemas/AutoencoderReconstructedImageResource"
+          },
+          "latent_coordinate": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Latent Coordinate"
+          },
+          "neighbors": {
+            "items": {
+              "$ref": "#/components/schemas/AutoencoderNeighborResource"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Neighbors"
+          },
+          "interpretation": {
+            "type": "string",
+            "title": "Interpretation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "model_version",
+          "sample",
+          "original",
+          "reconstruction",
+          "latent_coordinate",
+          "neighbors",
+          "interpretation"
+        ],
+        "title": "AutoencoderReconstructionResource"
+      },
+      "AutoencoderSampleResource": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "source_index": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Source Index"
+          },
+          "label_index": {
+            "type": "integer",
+            "maximum": 9.0,
+            "minimum": 0.0,
+            "title": "Label Index"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "coordinate": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Coordinate"
+          },
+          "reconstruction_error": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Reconstruction Error"
+          },
+          "image_data_uri": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,",
+            "title": "Image Data Uri"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "source_index",
+          "label_index",
+          "label",
+          "coordinate",
+          "reconstruction_error",
+          "image_data_uri"
+        ],
+        "title": "AutoencoderSampleResource"
+      },
+      "AutoencoderSamplesResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "samples": {
+            "items": {
+              "$ref": "#/components/schemas/AutoencoderSampleResource"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "minItems": 10,
+            "title": "Samples"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "samples"
+        ],
+        "title": "AutoencoderSamplesResource"
+      },
+      "AutoencoderSummaryResource": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "module": {
+            "type": "string",
+            "title": "Module"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "model": {
+            "$ref": "#/components/schemas/AutoencoderModelResource"
+          },
+          "dataset": {
+            "$ref": "#/components/schemas/AutoencoderDatasetResource"
+          },
+          "preprocessing": {
+            "$ref": "#/components/schemas/AutoencoderPreprocessingResource"
+          },
+          "evaluation": {
+            "$ref": "#/components/schemas/AutoencoderEvaluationResource"
+          },
+          "latent_contract": {
+            "$ref": "#/components/schemas/LatentContractResource"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "module",
+          "status",
+          "model",
+          "dataset",
+          "preprocessing",
+          "evaluation",
+          "latent_contract",
+          "limitations"
+        ],
+        "title": "AutoencoderSummaryResource"
       },
       "CheckpointResource": {
         "properties": {
@@ -1580,6 +2515,89 @@
           "artifact"
         ],
         "title": "HealthResource"
+      },
+      "LatentBoundsResource": {
+        "properties": {
+          "x": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "X"
+          },
+          "y": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Y"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "x",
+          "y"
+        ],
+        "title": "LatentBoundsResource"
+      },
+      "LatentContractResource": {
+        "properties": {
+          "dimensions": {
+            "type": "integer",
+            "maximum": 2.0,
+            "minimum": 2.0,
+            "title": "Dimensions"
+          },
+          "distance": {
+            "type": "string",
+            "title": "Distance"
+          },
+          "bounds": {
+            "$ref": "#/components/schemas/LatentBoundsResource"
+          },
+          "reference_points": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Reference Points"
+          },
+          "neighbors_returned": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Neighbors Returned"
+          },
+          "interpolation": {
+            "type": "string",
+            "title": "Interpolation"
+          },
+          "minimum_steps": {
+            "type": "integer",
+            "minimum": 2.0,
+            "title": "Minimum Steps"
+          },
+          "maximum_steps": {
+            "type": "integer",
+            "minimum": 3.0,
+            "title": "Maximum Steps"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dimensions",
+          "distance",
+          "bounds",
+          "reference_points",
+          "neighbors_returned",
+          "interpolation",
+          "minimum_steps",
+          "maximum_steps"
+        ],
+        "title": "LatentContractResource"
       },
       "LayerResource": {
         "properties": {
